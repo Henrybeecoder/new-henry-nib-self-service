@@ -1,0 +1,21 @@
+.contain {
+    background: #FCFCFC;
+border: 1px solid #FCFCFC;
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: space-around;
+font-family: 'Montserrat', sans-serif;
+padding: 5px 3px;
+}
+
+.firstText {
+    color: #606062;
+    width: 60%;
+}
+
+.secondText {
+    color: #606062;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -1,0 +1,54 @@
+.wrapper {
+    background: #FFFFFF;
+    border: 1px solid #E8E4E4;
+    border-radius: 33px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 15px 0 8px;
+    cursor: pointer;
+    margin: 15px 0;
+}
+
+.mainContent {
+    display: flex;
+}
+
+.textHolder {
+    
+    
+}
+
+
+
+.headerTextMargin h1 {
+    margin-top: 20px !important;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.headerTextMargin p {
+    font-size: 0.4rem;
+    color: #606062;
+    font-weight: 600;
+}
+.headerTextMargin {
+    margin-left: 15px;
+}
+.headerText {
+    margin-left: 15px;
+}
+
+.headerText h1{
+    margin-top: 20px !important;
+    font-size: 1rem;
+    font-weight: 400;
+    
+}
+
+.headerText p {
+    font-size: 0.4rem;
+    color: #606062;
+    font-weight: 600;
+}
+

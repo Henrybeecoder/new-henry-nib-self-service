@@ -1,0 +1,194 @@
+.formFlex {
+    display: flex;
+
+}
+
+.form {
+    width: 60%;
+}
+
+.dateform {
+    width: 30%;
+    margin: 0 20px;
+}
+
+.form input {
+    width: 100%;
+     padding: 10px 5px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid gray;
+}
+
+.dateform input {
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid gray;
+}
+
+.nameForm {
+    width: 100%;
+}
+
+.nameForm input {
+    width: 100%;
+     padding: 10px 5px;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid gray;
+}
+
+.header {
+    color: #000 !important;
+    font-size: 1rem !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    
+}
+
+.paragraph {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.upload {
+    cursor: pointer;
+    background: #FCF7F7;
+    border: 1px dashed #CAC2C3;
+    width: 200%;
+    padding: 10px 30px;
+    display: flex;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.upload p {
+    margin: 0 !important;
+}
+
+.validated {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.validate {
+    background: #DB353A;
+border-radius: 4px;
+cursor: pointer;
+border: none;
+color: #FFFFFF;
+padding: 0 20px;
+height: 50px;
+}
+
+.validatedId {
+  background: #FCF7F7;
+border: 1px solid #000000;
+border-radius: 4px;
+padding: 0 20px;
+height: 50px;
+cursor: pointer;
+}
+
+h5 {
+    font-size: 0.8rem !important;
+    margin: 30px 0 0 0 !important;
+}
+
+.flexButton {
+    width: 60%;
+    margin-top: 15px;
+    margin-left: 250px;
+    display: flex;
+}
+
+.flexButton .previous {
+    border: 1px solid #DB353A;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px 60px;
+    color: #DB353A;
+}
+
+.flexButton .submit {
+  background: #F1DBDA;
+  border-radius: 8px;
+ color: #CB6C6F;
+  padding: 10px 60px;
+  margin-left: 20px;
+  border: 1px solid #DB353A;
+  cursor: none !important;
+}
+.submitActive {
+  background: #DB353A;
+  border-radius: 8px;
+  color: #FFFFFF;
+  padding: 10px 60px;
+  margin-left: 20px;
+  border: 1px solid #DB353A;
+}
+
+.active {
+    background: white;
+    color: black;
+}
+
+
+
+@media screen and (max-width: 900px) {
+     .signatureCanvas  {
+        width: 100%;
+    }
+    .formFlex {
+        flex-direction: column;
+    }
+
+    .form {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .dateform {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .validated {
+        flex-direction: column;
+    }
+
+    .upload {
+        width: 100%;
+        padding: 0 30px;
+        margin: 0;
+    }
+
+    .validate, .validatedId {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .holder {
+        flex-direction: column;
+    }
+    .sign, .picture {
+    width: 100%;
+}
+.flexButton {
+  width: 100%;
+  margin: 0;
+  flex-direction: column;
+}
+.flexButton .submit {
+    margin: 2px 0;
+}
+.submitActive {
+    margin: 2px 0;
+}
+.flexButton .previous {
+    margin: 2px 0;
+}
+}

@@ -1,0 +1,242 @@
+.bg {
+   background: #1817174f;
+    /* opacity: 0.3; */
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.webcamContainer {
+    background: #FFFFFF;
+    border: 1px solid #E8E4E4;
+    box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
+    border-radius: 12px;
+    width: 40%;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.flexButton {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.flexButton .retry {
+    border: 1px solid #181717;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px 50px;
+}
+
+.flexButton .validate {
+  background: #181717;
+  border-radius: 8px;
+  color: #FFFFFF;
+  padding: 10px 100px;
+  margin-left: 20px;
+}
+
+.cancel  {
+ position: absolute;
+ left: 90%;
+ top: 20%;
+ cursor: pointer;
+}
+
+.header {
+position: relative;
+width: 100%;
+}
+
+.header h3 {
+ text-align: center;
+ font-size: 1.4rem;
+ color: #000;
+ font-weight: 600;
+}
+
+.captureButtons button {
+    background:#181717 ;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 7px;
+    border: none !important;
+}
+
+.captureButtons {
+    width: 50%;
+    display: flex;
+    position: absolute;
+    top: 80%;
+    left: 30%;
+}
+
+.webcam {
+    position: relative;
+}
+
+.getCapture {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+}
+
+.resultFlex  {
+    background: #FCF7F7;
+    border-radius: 8px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 5px 0;
+    margin: 7px 0;
+}
+
+.resultFlex button {
+     border: 1px solid #181717;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px 50px;
+}
+
+.resultText {
+    display: flex;
+}
+
+.iconFlex p {
+  margin: 0 6px!important;
+  color: #606062;
+}
+
+.success {
+    color: #66CC15;
+}
+
+.failed {
+    color: #DB353A;
+}
+
+.done {
+    width: 10%;
+    margin: 0 5px 0 0;
+}
+
+.otp {
+    width: 70px !important;
+    text-align: center !important;
+    margin: 0 10px;
+    padding: 10px 0 !important;
+}
+
+.otpHolder {
+    margin: 30px 0;
+}
+
+/* for error validation */
+
+.ErrorBg {
+    background: #18171775;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.ErrorContain {
+    background: white;
+    width: 50%;
+    box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
+    border-radius: 12px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 60px 20px;
+}
+
+.ErrorContain p {
+    color: #606062;
+    text-align: center;
+    margin: 0 30px;
+}
+ 
+.ErrorContain h1 {
+    color: #000;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.ErrorContain .ErrorButtonFlex {
+    display: flex;
+    margin-top: 40px;
+}
+
+.ErrorContain .ErrorButtonFlex .ErrorCancel {
+    outline: none;
+    background: transparent;
+    border: 1px solid #DB353A;
+    border-radius: 8px; 
+    color: #DB353A;
+    padding: 10px 90px;
+}
+
+.ErrorContain .ErrorButtonFlex .ErrorRetry {
+    outline: none;
+    background: #DB353A;
+    border: 1px solid #DB353A;
+    border-radius: 8px; 
+    color: #fff;
+    padding: 10px 140px;
+    margin-left: 10px;
+}
+
+.ErrorContain .ErrorMessage {
+  margin-left: 50%;
+}
+
+
+@media screen and (max-width: 900px) {
+     .ErrorContain {
+        width: 90%;
+    }
+    .ErrorContain .ErrorButtonFlex {
+        flex-direction: column;
+    }
+    .ErrorContain .ErrorButtonFlex .ErrorRetry, .ErrorCancel {
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    .ErrorContain .ErrorButtonFlex  .ErrorRetry {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .ErrorContain .ErrorMessage  {
+        margin: 0;
+    }
+    .webcamContainer {
+        width: 80%;
+    }
+    .captureButtons {
+        width: 100%;
+        left: 15%;
+        top: 70%;
+    }
+}
+

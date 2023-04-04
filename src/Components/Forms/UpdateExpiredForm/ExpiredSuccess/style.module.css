@@ -1,0 +1,26 @@
+.container {
+    text-align: center;
+    padding: 10px 40px;
+    height: 100%;
+}
+
+.container h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 10px 10px;
+    
+}
+
+.container p {
+    margin: 4px 20px;
+    font-size: 0.8rem !important;
+}
+
+.container button {
+     border: 1px solid #DB353A;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px 50px;
+    color: #DB353A;
+    margin: 4px 0;
+}

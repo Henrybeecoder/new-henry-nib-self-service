@@ -1,0 +1,59 @@
+.main {
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #FCF7F7;
+    box-shadow: 0px 20px 30px 11px rgba(255, 185, 185, 0.15);
+    backdrop-filter: blur(30px);
+    border-radius: 24px;
+    width: 40%;
+    text-align: start;
+    padding: 20px 30px 30px 30px;
+    min-height: 60vh;
+    z-index: 1;
+}
+
+.main h1 {
+    color: #181717;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+.main p {
+    color: #606062;
+    font-size: 0.8rem;
+    margin: 5px 0 25px 0;
+}
+
+.HeaderFlex {
+    display: flex;
+}
+
+.backButton {
+    cursor: pointer;
+}
+.HeaderFlex h1 {
+     margin-left: 20px;
+    font-size: 1.2rem;
+}
+
+.staticTextHolder {
+    margin: 20px 0 0 0;
+}
+
+.staticTextHolder h1 {
+ margin-left: 20px;
+    font-size: 1.3rem;
+}
+
+.staticTextHolder p {
+    margin-left: 20px;
+    font-size: 0.7rem;
+}
+
+@media screen and (max-width: 900px) {
+    .main {
+       width: 100%; 
+       padding: 10px 0;
+    }
+}

@@ -1,0 +1,8 @@
+.identity-tab .nav-link.active{
+    background-color: white !important;
+    color:black !important;
+}
+
+.identity-tab .nav-link{
+    color: #DC3545;
+}

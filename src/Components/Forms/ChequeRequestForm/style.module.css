@@ -1,0 +1,161 @@
+.header {
+    color: #000 !important;
+    font-size: 1rem !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    margin: 16px 0 !important;
+}
+
+.contentFlex {
+    display: flex;
+}
+
+.firstContent {
+    display: flex;
+}
+
+.priceContainer {
+    background: #FCF7F7;
+    border-radius: 8px;
+    color: #DB353A;
+    font-weight: 700;
+    padding: 10px 60px;
+    margin: 23px 50px;
+}
+
+.holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.firstContent input {
+    padding: 5px 60px;
+}
+
+.firstContent select {
+    padding: 0 40px;
+    height: 40px;
+    margin-top: 30px;
+}
+
+.active  {
+    background: white;
+    color: #DB353A;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
+    border-radius: 4px;
+    
+    padding: 5px 80px;
+}
+
+.active .box {
+    background: #DB353A;
+    color: white;
+    width: 40px;
+    height: 17px;
+    font-size: 13px;
+    margin-left: 15px;
+
+}
+
+.deliveryHolder {
+    background: #FCF7F7;
+border-radius: 8px;
+display: flex;
+justify-content: space-between;
+padding: 10px 0;
+}
+
+.firstcon, .secondCon {
+    cursor: pointer;
+    display: flex;
+    padding: 5px 80px;
+    
+}
+
+.firstcon .box, .secondCon .box {
+    color: #FFFFFF;
+    background: black;
+    width: 40px;
+    height: 17px;
+    font-size: 13px;
+    margin-left: 20px;
+}
+
+
+.formRow {
+    display: flex;
+    margin: 10px 0;
+}
+
+.totalCostBox {
+    color: #181717;
+    background: #FCF7F7;
+border-radius: 8px;
+padding: 30px;
+}
+
+.ice {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flexButton {
+    width: 60%;
+    margin-top: 15px;
+    margin-left: 250px;
+    display: flex;
+}
+
+.flexButton .previous {
+    border: 1px solid #DB353A;
+    border-radius: 8px;
+    background: transparent;
+    padding: 10px 60px;
+    color: #DB353A;
+}
+
+.flexButton .submit {
+  background: #DB353A;
+  border-radius: 8px;
+  color: #FFFFFF;
+  padding: 10px 60px;
+  margin-left: 20px;
+  border: 1px solid #DB353A;
+}
+
+.selectFlex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.singleSelect {
+    width: 40%;
+}
+
+.selectFlex select {
+    width: 100%;
+    padding: 10px 0;
+}
+
+
+
+
+@media screen and (max-width:900px) {
+     .signatureCanvas  {
+        width: 100%;
+    }
+    .selectFlex  {
+        flex-direction: column;
+    }
+    .singleSelect {
+        width: 100%;
+    }
+    .contentFlex {
+        flex-direction: column;
+    }
+   .formRow {
+        flex-direction: column;
+    }
+}
