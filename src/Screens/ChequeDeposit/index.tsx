@@ -49,6 +49,7 @@ export default function ChequeDeposit() {
   // const [validated, setValidated] = useState(false);
   const webcamRef = React.useRef(null);
   const [bvnCompleted, setBvnCompleted] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [referenceId, setreferenceId] = useState("");
 
   const validateImage = () => {
@@ -350,21 +351,31 @@ export default function ChequeDeposit() {
                           </span>
                         ) : (
                           <span>
-                            <img className='pr-1' src={group1} alt='' />
+                            <img className={styles.done} src={group1} alt='' />
                           </span>
                         )}
                         Bvn Validation &nbsp;
                         <span>
-                          <img src={rightArrow} alt='' />
+                          <img
+                            className={styles.done}
+                            src={rightArrow}
+                            alt=''
+                          />
                         </span>
                       </a>
                     </li>
                     <li className='breadcrumb-item'>
                       {" "}
                       <a href='#'>
-                        <span>
-                          <img className='pr-1' src={no2} alt='' />
-                        </span>{" "}
+                        {success ? (
+                          <span>
+                            <img className={styles.done} src={Done} alt='' />
+                          </span>
+                        ) : (
+                          <span>
+                            <img className={styles.done} src={no2} alt='' />
+                          </span>
+                        )}{" "}
                         Request details
                       </a>
                     </li>
@@ -528,7 +539,10 @@ export default function ChequeDeposit() {
                   ""
                 )}
                 {accountOpeningStep === "account-reactivation" ? (
-                  <ChequeDepositForm />
+                  <ChequeDepositForm
+                    success={success}
+                    setSuccess={setSuccess}
+                  />
                 ) : (
                   ""
                 )}

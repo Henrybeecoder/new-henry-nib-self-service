@@ -17,7 +17,13 @@ interface Images {
   back: { file: File | null; url: string | undefined };
 }
 
-export default function ChequeDepositForm() {
+export default function ChequeDepositForm({
+  success,
+  setSuccess,
+}: {
+  success: boolean;
+  setSuccess: (state: boolean) => void;
+}) {
   const [{ front, back }, setFiles] = useState<Images>({
     front: { file: null, url: undefined },
     back: { file: null, url: undefined },
@@ -26,7 +32,6 @@ export default function ChequeDepositForm() {
   const [amount, setAmount] = useState<any>("");
   const [validating, setValidating] = useState(false);
   const [preview, setPreview] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [userDetails] = useState(getLocalStorageItem("userDetails"));
 
   const closePreview = () => setPreview(false);
