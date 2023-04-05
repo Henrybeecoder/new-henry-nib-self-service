@@ -6,27 +6,49 @@
   margin: 16px 0 !important;
 }
 
+.ErrorContain h1 {
+  color: #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  margin: 0;
+}
+
 .imgCorn {
   width: 100%;
 }
 
 .imgHolder {
-  width: 400px;
-  height: 400px;
-  margin-left: 120px;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  max-height: 300px;
+  height: 100%;
+}
+
+.imgHolder img {
+  width: 100%;
+  height: 100%;
 }
 
 .shift {
   position: absolute;
   top: 50%;
-  left: 77%;
-  cursor: pointer;
+  transform: translateY(-50%);
+  right: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: fit-content;
+  width: 45px;
+  height: 45px;
 }
 
 .slider {
   position: relative;
+  flex: 1;
+  margin-top: 20px;
 }
 
 .uploadRow {
@@ -220,20 +242,20 @@
 
 .ErrorContain {
   background: white;
-  width: 50%;
-  height: 96%;
+  width: 45%;
+  height: 90%;
   box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
   border-radius: 12px;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
-  padding: 60px 20px;
+  padding: 30px 60px;
 }
 
 .ErrorContain p {
   color: #606062;
   text-align: center;
-  margin: 0 30px;
+  margin-bottom: 25px;
 }
 
 .ErrorContain h1 {
@@ -246,47 +268,79 @@
 
 .ErrorContain .ErrorButtonFlex {
   display: flex;
-  /* margin-top: 40px; */
+  width: 70%;
+  margin: auto;
+  gap: 20px;
+  /* margin: auto; */
 }
 
-.ErrorContain .ErrorButtonFlex .ErrorCancel {
+.ErrorCancel {
   outline: none;
   background: transparent;
   border: 1px solid #db353a;
   border-radius: 8px;
   color: #db353a;
-  padding: 10px 90px;
+  padding: 10px 0;
+  margin: 0;
+  width: 100%;
 }
 
-.ErrorContain .ErrorButtonFlex .ErrorRetry {
+.ErrorRetry {
   outline: none;
   background: #db353a;
   border: 1px solid #db353a;
   border-radius: 8px;
   color: #fff;
-  padding: 10px 140px;
-  margin-left: 10px;
+  padding: 10px 0;
+  width: 100%;
 }
 
 .ErrorContain .ErrorMessage {
   margin-left: 50%;
 }
 
-.shownAmount p {
-  color: #606062;
-  font-weight: 500;
+.shownAmount {
+  padding: 0 20px;
 }
 
-.shownAmount .shownAmountContainer {
+.shownAmount h3 {
+  color: #606062;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.shownAmount p {
   background: #fcf7f7;
   border-radius: 8px;
   color: #db353a;
   font-weight: 600;
-  padding-left: 20px;
+  padding: 7px 20px;
+  text-align: start;
+  margin: 0;
 }
 
 .paddingContainer {
   padding: 15px;
+}
+
+.indicators {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 999999px;
+  border: 1px solid #000000e4;
+}
+
+.indicator.indicatorA {
+  background-color: #000000e4;
 }
 
 @media screen and (max-width: 900px) {
@@ -294,26 +348,26 @@
     width: 100%;
   }
   .imgHolder {
-    margin-left: 0;
-    margin-bottom: 10px;
-    margin-top: 0;
+    position: relative;
     height: 200px;
-    width: 200px;
+    width: 70%;
+    margin: auto;
   }
 
-  .slider {
+  /* .slider {
     width: 50%;
-  }
+  } */
 
-  .shift {
+  /* .shift {
     right: 70%;
-  }
+  } */
 
   .ErrorContain {
     width: 90%;
   }
   .ErrorContain .ErrorButtonFlex {
     flex-direction: column;
+    width: 100%;
   }
   .ErrorContain .ErrorButtonFlex .ErrorRetry,
   .ErrorCancel {
@@ -323,7 +377,8 @@
 
   .ErrorContain .ErrorButtonFlex .ErrorRetry {
     margin-left: 0;
-    margin-top: 10px;
+    margin-top: 5px;
+    width: 100%;
   }
 
   .ErrorContain .ErrorMessage {

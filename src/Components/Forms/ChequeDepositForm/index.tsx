@@ -12,28 +12,33 @@ import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import axios from "axios";
 import UploadTemp from "./UploadTemp";
 
+interface Images {
+  front: { file: File | null; url: string | undefined };
+  back: { file: File | null; url: string | undefined };
+}
+
 export default function ChequeDepositForm() {
-  const [{ front, back }, setFiles] = useState<{
-    front: string | undefined;
-    back: string | undefined;
-  }>({ front: undefined, back: undefined });
+  const [{ front, back }, setFiles] = useState<Images>({
+    front: { file: null, url: undefined },
+    back: { file: null, url: undefined },
+  });
 
   const [amount, setAmount] = useState<any>("");
   const [validating, setValidating] = useState(false);
-  const [result, setResult] = useState(false);
-  const [change, setChange] = useState(true);
+  const [preview, setPreview] = useState(false);
   const [success, setSuccess] = useState(false);
   const [userDetails] = useState(getLocalStorageItem("userDetails"));
 
-  const closeResult = () => {
-    setResult(false);
-  };
+  const closePreview = () => setPreview(false);
 
-  const submitChequeDepositForm = () => {
+  const submitChequeDepositForm = async () => {
     setValidating(true);
+    const frontStr = await blobToBase64(front.file);
+    const backStr = await blobToBase64(back.file);
+
     let ChequeDepositPayload = {
-      front: front,
-      bank: back,
+      front: frontStr,
+      bank: backStr,
       referenceId: userDetails.referenceId,
       requestedDate: new Date(),
     };
@@ -42,30 +47,21 @@ export default function ChequeDepositForm() {
       value: encryptAes(ChequeDepositPayload),
     };
 
-    axios
-      .post(
+    try {
+      const { data } = await axios.post(
         `${baseUrl}ChequeDeposit/submit-cheque-deposit`,
         newEncryptedPayload
-      )
-      .then((newResponse) => {
-        console.log(newResponse, "The otp response");
-        const response = deCryptedData(newResponse.data);
-        // console.log(response);
-
-        setSuccess(true);
-
-        toast.successToast(response.message);
-
-        setValidating(false);
-      })
-      .catch((err) => {
-        //toast.errorToast("something went wrong");
-        console.log(err);
-        setSuccess(true);
-
-        setValidating(false);
-      });
+      );
+      const response = deCryptedData(data.data);
+      setSuccess(true);
+      toast.successToast(response.message);
+      setValidating(false);
+    } catch (err) {
+      setSuccess(false);
+      setValidating(false);
+    }
   };
+
   return (
     <div className={styles.paddingContainer}>
       {success ? (
@@ -77,81 +73,27 @@ export default function ChequeDepositForm() {
             The file format should be JPEG or PDF
           </p>
 
-          {result && (
-            <div className={styles.ErrorBg}>
-              <div className={styles.ErrorContain}>
-                <h1 className={styles.header}>Confirm details</h1>
-                <p className={styles.paragraph}>
-                  Kindly confirm the details of your cheque deposit
-                </p>
-                <div className={styles.shownAmount}>
-                  <p>Amount</p>
-                  <div
-                    className={styles.shownAmountContainer}>{`N${amount}`}</div>
-                </div>
-                <div className={styles.slider}>
-                  <div className={styles.imgHolder}>
-                    {change ? (
-                      <img src={front} alt='' className={styles.imgCorn} />
-                    ) : (
-                      <img src={back} alt='' className={styles.imgCorn} />
-                    )}
-                  </div>
-                  <div>
-                    <img
-                      src={shift}
-                      alt=''
-                      onClick={() => setChange((prevState) => !prevState)}
-                      className={styles.shift}
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.ErrorButtonFlex}>
-                  <button className={styles.ErrorCancel} onClick={closeResult}>
-                    Edit
-                  </button>
-
-                  {validating ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        alignContent: "center",
-                        width: "100%",
-                        height: "100%",
-                      }}>
-                      <div
-                        className='spinner-border text-danger mb-4'
-                        role='status'>
-                        <span className='sr-only'></span>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      className={styles.ErrorRetry}
-                      type='submit'
-                      onClick={submitChequeDepositForm}>
-                      Submit
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
+          {preview && (
+            <PreviewModal
+              validating={validating}
+              images={{ front, back }}
+              amount={amount}
+              closePreview={closePreview}
+              onSubmit={submitChequeDepositForm}
+            />
           )}
           <>
             <div className={styles.uploadRow}>
               <UploadTemp
                 name='Front'
-                image={front}
+                image={front.url}
                 onChange={(image) =>
                   setFiles((state) => ({ back: state.back, front: image }))
                 }
               />
               <UploadTemp
                 name='Back'
-                image={back}
+                image={back.url}
                 onChange={(image) =>
                   setFiles((state) => ({ front: state.front, back: image }))
                 }
@@ -180,7 +122,7 @@ export default function ChequeDepositForm() {
                       alignItems: "center",
                       justifyContent: "center",
                       alignContent: "center",
-                      width: "100%",
+                      width: "200px",
                       height: "100%",
                     }}>
                     <div
@@ -194,7 +136,7 @@ export default function ChequeDepositForm() {
                     disabled={!(amount.length > 1 && !!front && !!back)}
                     className={styles.submit}
                     type='submit'
-                    onClick={() => setResult(true)}>
+                    onClick={() => setPreview(true)}>
                     Proceed
                   </button>
                 )}
@@ -206,3 +148,111 @@ export default function ChequeDepositForm() {
     </div>
   );
 }
+
+const blobToBase64 = (blob: Blob) => {
+  return new Promise((resolve: (str: string) => void) => {
+    const reader = new FileReader();
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => console.log("file reading has failed");
+    reader.onload = () => {
+      const imgStr = reader.result?.toString();
+      resolve(imgStr);
+    };
+    reader.readAsDataURL(blob);
+  });
+};
+
+interface PMProps {
+  images: Images;
+  amount: string | number;
+  closePreview: () => void;
+  onSubmit: () => void;
+  validating: boolean;
+}
+
+type Face = "front" | "back";
+
+const PreviewModal = ({
+  images: { front, back },
+  amount,
+  closePreview,
+  onSubmit,
+  validating,
+}: PMProps) => {
+  const [face, setFace] = useState<Face>("front");
+
+  return (
+    <div className={styles.ErrorBg}>
+      <div className={styles.ErrorContain}>
+        <h1 className={styles.header}>Confirm details</h1>
+        <p className={styles.paragraph}>
+          Kindly confirm the details of your cheque deposit
+        </p>
+        <div className={styles.shownAmount}>
+          <h3>Amount</h3>
+          <p>{`N${amount}`}</p>
+        </div>
+        <div className={styles.slider}>
+          <div className={styles.imgHolder}>
+            {face === "front" ? (
+              <img src={front.url} alt='' />
+            ) : (
+              <img src={back.url} alt='' />
+            )}
+            <button
+              onClick={() =>
+                setFace((prevState) =>
+                  prevState === "front" ? "back" : "front"
+                )
+              }
+              className={styles.shift}>
+              <img src={shift} alt='' />
+            </button>
+          </div>
+
+          <div className={styles.indicators}>
+            <div
+              className={`${styles.indicator} ${
+                face === "front" ? styles.indicatorA : ""
+              }`}
+            />
+            <div
+              className={`${styles.indicator} ${
+                face === "back" ? styles.indicatorA : ""
+              }`}
+            />
+          </div>
+        </div>
+
+        <div className={styles.ErrorButtonFlex}>
+          <button className={styles.ErrorCancel} onClick={closePreview}>
+            Edit
+          </button>
+
+          {validating ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                alignContent: "center",
+                width: "100%",
+                // height: "20px",
+              }}>
+              <div className='spinner-border text-danger' role='status'>
+                <span className='sr-only'></span>
+              </div>
+            </div>
+          ) : (
+            <button
+              className={styles.ErrorRetry}
+              type='submit'
+              onClick={onSubmit}>
+              Submit
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};

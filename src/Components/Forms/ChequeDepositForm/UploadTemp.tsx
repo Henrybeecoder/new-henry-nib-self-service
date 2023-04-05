@@ -8,7 +8,7 @@ import { FileRejection, useDropzone } from "react-dropzone";
 
 interface Props {
   image: string | undefined;
-  onChange: (image: string) => void;
+  onChange: (image: { file: File | null; url: string }) => void;
   name: "Front" | "Back";
 }
 
@@ -22,20 +22,24 @@ const UploadTemp = ({ name, image, onChange }: Props) => {
         return;
       }
 
-      acceptedFiles.forEach((file) => {
-        const reader = new FileReader();
+      acceptedFiles.forEach((file) =>
+        onChange({ file, url: URL.createObjectURL(file) })
+      );
 
-        reader.onabort = () => console.log("file reading was aborted");
-        reader.onerror = () => console.log("file reading has failed");
-        reader.onload = () => {
-          // Do whatever you want with the file contents
-          const binaryStr = reader.result?.toString();
-          // console.log(binaryStr);
-          // console.log(reader, "The reader");
-          onChange(binaryStr);
-        };
-        reader.readAsBinaryString(file);
-      });
+      // acceptedFiles.forEach((file) => {
+      //   const reader = new FileReader();
+
+      //   reader.onabort = () => console.log("file reading was aborted");
+      //   reader.onerror = () => console.log("file reading has failed");
+      //   reader.onload = () => {
+      //     // Do whatever you want with the file contents
+      //     const imgStr = reader.result?.toString();
+      //     // console.log(binaryStr);
+      //     // console.log(reader, "The reader");
+      //     onChange(imgStr);
+      //   };
+      //   reader.readAsDataURL(file);
+      // });
     },
     [onChange]
   );
