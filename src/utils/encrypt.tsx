@@ -10,7 +10,7 @@ export const encryptAes = (data: any) => {
     mode: CryptoJS.mode.CBC,
   });
   const result = preEncrypteds.toString(CryptoJS.format.Hex);
-  console.log(result);
+  // console.log(result);
   return result;
 };
 
@@ -23,6 +23,6 @@ export const deCryptedData = (data: any) => {
   );
   const encDecrypted = preDecrypted.toString(CryptoJS.enc.Utf8);
   const decrypted = JSON.parse(encDecrypted);
-  console.log(decrypted);
+  // console.log(decrypted);
   return decrypted;
 };

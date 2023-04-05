@@ -1,21 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const accountOpeningSlice = createSlice({
-    name: "accountOpening",
-    initialState: {
-        accountType: '',
-        accountOpeningStep: 'bvn-validation'
+  name: "accountOpening",
+  initialState: {
+    accountType: "",
+    accountOpeningStep: "account-reactivation",
+  },
+  reducers: {
+    setAccountOpeningDetails: (state, action) => {
+      state.accountType = action.payload;
     },
-    reducers: {
-        setAccountOpeningDetails: (state, action) => {
-            state.accountType = action.payload
-        },
-        setAccountOpeningStep: (state, action) => {
-            state.accountOpeningStep = action.payload
-        }
-    }
-})
+    setAccountOpeningStep: (state, action) => {
+      state.accountOpeningStep = action.payload;
+    },
+  },
+});
 
-export const { setAccountOpeningDetails, setAccountOpeningStep } = accountOpeningSlice.actions
+export const { setAccountOpeningDetails, setAccountOpeningStep } =
+  accountOpeningSlice.actions;
 
-export default accountOpeningSlice.reducer
+export default accountOpeningSlice.reducer;

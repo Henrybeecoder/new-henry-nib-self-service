@@ -1,271 +1,271 @@
 .header {
-    color: #000 !important;
-    font-size: 1rem !important;
-    text-align: center !important;
-    font-weight: 600 !important;
-    margin: 16px 0 !important;
+  color: #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  margin: 16px 0 !important;
 }
 
 .imgCorn {
-    width: 100%;
+  width: 100%;
 }
 
 .imgHolder {
-    width: 400px;
-    height: 400px;
-    margin-left: 120px;
-    margin-top: 30px;
-    margin-bottom: 10px;
+  width: 400px;
+  height: 400px;
+  margin-left: 120px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .shift {
-    position: absolute;
-    top: 50%;
-    left: 77%;
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 77%;
+  cursor: pointer;
 }
 
 .slider {
-    position: relative;
+  position: relative;
 }
 
 .uploadRow {
-    display: flex;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 25px;
 }
 
 .contentFlex {
-    display: flex;
+  display: flex;
 }
 
 .firstContent {
-    display: flex;
+  display: flex;
 }
 
 .priceContainer {
-    background: #FCF7F7;
-    border-radius: 8px;
-    color: #DB353A;
-    font-weight: 700;
-    padding: 10px 60px;
-    margin: 23px 50px;
+  background: #fcf7f7;
+  border-radius: 8px;
+  color: #db353a;
+  font-weight: 700;
+  padding: 10px 60px;
+  margin: 23px 50px;
 }
 
 .holder {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .firstContent input {
-    padding: 5px 60px;
+  padding: 5px 60px;
 }
 
 .firstContent select {
-    padding: 0 40px;
-    height: 40px;
-    margin-top: 30px;
+  padding: 0 40px;
+  height: 40px;
+  margin-top: 30px;
 }
 
-.active  {
-    background: white;
-    color: #DB353A;
-    cursor: pointer;
-    display: flex;
-    box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
-    border-radius: 4px;
-    
-    padding: 5px 80px;
+.active {
+  background: white;
+  color: #db353a;
+  cursor: pointer;
+  display: flex;
+  box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
+  border-radius: 4px;
+
+  padding: 5px 80px;
 }
 
 .active .box {
-    background: #DB353A;
-    color: white;
-    width: 40px;
-    height: 17px;
-    font-size: 13px;
-    margin-left: 15px;
-
+  background: #db353a;
+  color: white;
+  width: 40px;
+  height: 17px;
+  font-size: 13px;
+  margin-left: 15px;
 }
 
 .deliveryHolder {
-    background: #FCF7F7;
-border-radius: 8px;
-display: flex;
-justify-content: space-between;
-padding: 10px 0;
+  background: #fcf7f7;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
 }
 
-.firstcon, .secondCon {
-    cursor: pointer;
-    display: flex;
-    padding: 5px 80px;
-    
+.firstcon,
+.secondCon {
+  cursor: pointer;
+  display: flex;
+  padding: 5px 80px;
 }
 
-.firstcon .box, .secondCon .box {
-    color: #FFFFFF;
-    background: black;
-    width: 40px;
-    height: 17px;
-    font-size: 13px;
-    margin-left: 20px;
+.firstcon .box,
+.secondCon .box {
+  color: #ffffff;
+  background: black;
+  width: 40px;
+  height: 17px;
+  font-size: 13px;
+  margin-left: 20px;
 }
-
 
 .formRow {
-    display: flex;
-    margin: 10px 0;
+  display: flex;
+  margin: 10px 0;
 }
 
 .totalCostBox {
-    color: #181717;
-    background: #FCF7F7;
-border-radius: 8px;
-padding: 30px;
+  color: #181717;
+  background: #fcf7f7;
+  border-radius: 8px;
+  padding: 30px;
 }
 
 .ice {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .flexButton {
-    width: 60%;
-    margin-top: 15px;
-    margin-left: 250px;
-    display: flex;
+  width: 60%;
+  margin-top: 45px;
+  margin-left: 250px;
+  display: flex;
 }
 
 .flexButton .previous {
-    border: 1px solid #DB353A;
-    border-radius: 8px;
-    background: transparent;
-    padding: 10px 60px;
-    color: #DB353A;
+  border: 1px solid #db353a;
+  border-radius: 8px;
+  background: transparent;
+  padding: 10px 60px;
+  color: #db353a;
 }
 
 .header {
-    color: #000 !important;
-    font-size: 1rem !important;
-    text-align: center !important;
-    font-weight: 600 !important;  
+  color: #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  font-weight: 600 !important;
 }
 
 .paragraph {
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: -20px;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: -20px;
 }
 
 .flexButton .submit {
-  background: #F1DBDA;
+  background: #db353a;
   border-radius: 8px;
- color: #CB6C6F;
+
+  color: #ffffff;
   padding: 10px 60px;
   margin-left: 20px;
-  border: 1px solid #DB353A;
-  cursor: none !important;
+  border: 1px solid #db353a;
 }
-.submitActive {
-  background: #DB353A;
-  border-radius: 8px;
-  color: #FFFFFF;
-  padding: 10px 60px;
-  margin-left: 20px;
-  border: 1px solid #DB353A;
+.flexButton .submit:disabled {
+  background: #f1dbda;
+  color: #cb6c6f;
 }
 
 .selectFlex {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .singleSelect {
-    width: 40%;
+  width: 40%;
 }
 
 .selectFlex select {
-    width: 100%;
-    padding: 10px 0;
+  width: 100%;
+  padding: 10px 0;
 }
 
-
 .upload {
-    cursor: pointer;
-    background: #FCF7F7;
-    border: 1px dashed #CAC2C3;
-    width: 110%;
-    padding: 10px 30px;
-    display: flex;
-    border-radius: 5px;
-    justify-content: space-between;
-   
+  cursor: pointer;
+  background: #fcf7f7;
+  border: 1px dashed #cac2c3;
+  width: 100%;
+  height: 55px;
+  padding: 0 30px;
+  margin-top: 5px;
+  display: flex;
+  border-radius: 5px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .upload p {
-    margin: 0 !important;
+  margin: 0 !important;
+  font-size: 12px;
 }
 
 .ErrorBg {
-    background: #18171775;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
+  background: #18171775;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
 
 .ErrorContain {
-    background: white;
-    width: 50%;
-    box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
-    border-radius: 12px;
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 60px 20px;
+  background: white;
+  width: 50%;
+  height: 96%;
+  box-shadow: 2px 5px 10px rgba(232, 80, 80, 0.2);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 60px 20px;
 }
 
 .ErrorContain p {
-    color: #606062;
-    text-align: center;
-    margin: 0 30px;
+  color: #606062;
+  text-align: center;
+  margin: 0 30px;
 }
- 
+
 .ErrorContain h1 {
-    color: #000;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin: 10px 0;
+  color: #000;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 10px 0;
 }
 
 .ErrorContain .ErrorButtonFlex {
-    display: flex;
-    margin-top: 40px;
+  display: flex;
+  /* margin-top: 40px; */
 }
 
 .ErrorContain .ErrorButtonFlex .ErrorCancel {
-    outline: none;
-    background: transparent;
-    border: 1px solid #DB353A;
-    border-radius: 8px; 
-    color: #DB353A;
-    padding: 10px 90px;
+  outline: none;
+  background: transparent;
+  border: 1px solid #db353a;
+  border-radius: 8px;
+  color: #db353a;
+  padding: 10px 90px;
 }
 
 .ErrorContain .ErrorButtonFlex .ErrorRetry {
-    outline: none;
-    background: #DB353A;
-    border: 1px solid #DB353A;
-    border-radius: 8px; 
-    color: #fff;
-    padding: 10px 140px;
-    margin-left: 10px;
+  outline: none;
+  background: #db353a;
+  border: 1px solid #db353a;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 140px;
+  margin-left: 10px;
 }
 
 .ErrorContain .ErrorMessage {
@@ -273,94 +273,96 @@ padding: 30px;
 }
 
 .shownAmount p {
-    color: #606062;
-    font-weight: 500;
+  color: #606062;
+  font-weight: 500;
 }
 
 .shownAmount .shownAmountContainer {
-    background: #FCF7F7;
-    border-radius: 8px;
-    color: #DB353A;
-    font-weight: 600;
-    padding-left: 20px;
+  background: #fcf7f7;
+  border-radius: 8px;
+  color: #db353a;
+  font-weight: 600;
+  padding-left: 20px;
 }
 
-
-
-@media screen and (max-width:900px) {
-     .signatureCanvas  {
-        width: 100%;
-    }
-    .imgHolder {
-        margin-left: 0;
-        margin-bottom: 10px;
-        margin-top: 0;
-        height: 200px;
-        width: 200px;
-    }
-
-    .slider {
-       
-        width: 50%;
-    }
-
-    .shift {
-        right: 70%;
-    }
-
-    .ErrorContain {
-        width: 90%;
-    }
-    .ErrorContain .ErrorButtonFlex {
-        flex-direction: column;
-    }
-    .ErrorContain .ErrorButtonFlex .ErrorRetry, .ErrorCancel {
-        padding: 10px 0;
-        width: 100%;
-    }
-
-    .ErrorContain .ErrorButtonFlex  .ErrorRetry {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-
-    .ErrorContain .ErrorMessage  {
-        margin: 0;
-    }
-    .selectFlex  {
-        flex-direction: column;
-    }
-    .singleSelect {
-        width: 100%;
-    }
-    .contentFlex {
-        flex-direction: column;
-    }
-   .formRow {
-        flex-direction: column;
-    }
-    .uploadRow  {
-        flex-direction: column;
-    }
-    .upload {
-        width: 100%;
-    }
-    .flexButton {
-  width: 100%;
-  margin-top: 30px;
-  margin: 0;
-  flex-direction: column;
+.paddingContainer {
+  padding: 15px;
 }
-.flexButton .submit {
+
+@media screen and (max-width: 900px) {
+  .signatureCanvas {
+    width: 100%;
+  }
+  .imgHolder {
+    margin-left: 0;
+    margin-bottom: 10px;
+    margin-top: 0;
+    height: 200px;
+    width: 200px;
+  }
+
+  .slider {
+    width: 50%;
+  }
+
+  .shift {
+    right: 70%;
+  }
+
+  .ErrorContain {
+    width: 90%;
+  }
+  .ErrorContain .ErrorButtonFlex {
+    flex-direction: column;
+  }
+  .ErrorContain .ErrorButtonFlex .ErrorRetry,
+  .ErrorCancel {
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  .ErrorContain .ErrorButtonFlex .ErrorRetry {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .ErrorContain .ErrorMessage {
+    margin: 0;
+  }
+  .selectFlex {
+    flex-direction: column;
+  }
+  .singleSelect {
+    width: 100%;
+  }
+  .contentFlex {
+    flex-direction: column;
+  }
+  .formRow {
+    flex-direction: column;
+  }
+  .uploadRow {
+    flex-direction: column;
+  }
+  .upload {
+    width: 100%;
+  }
+  .flexButton {
+    width: 100%;
+    margin-top: 30px;
+    margin: 0;
+    flex-direction: column;
+  }
+  .flexButton .submit {
     margin: 2px 0;
-}
-.submitActive {
+  }
+  .submit {
     margin: 2px 0;
-}
-.flexButton .previous {
+  }
+  .flexButton .previous {
     margin: 2px 0;
-}
-.formRow {
-        flex-direction: column;
-    }
+  }
+  .formRow {
+    flex-direction: column;
+  }
 }

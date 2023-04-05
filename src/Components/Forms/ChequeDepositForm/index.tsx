@@ -1,33 +1,29 @@
-import React, { useState, useRef, useCallback } from "react";
-import Front from "./front";
-import Back from "./back";
+import React, { useState } from "react";
 import styles from "./style.module.css";
 import shift from "../../../assets/downloads/shift.svg";
 import ChequeDepositSuccess from "./ChequeDepositSuccess";
 import { baseUrl } from "../../../utils/baseUrl";
 import * as toast from "../../../utils/makeToast";
 import "react-toastify/dist/ReactToastify.css";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 import { getLocalStorageItem } from "../../../utils/localStorage";
-import SignaturePad from "react-signature-canvas";
+// import SignaturePad from "react-signature-canvas";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import axios from "axios";
+import UploadTemp from "./UploadTemp";
 
 export default function ChequeDepositForm() {
-  const [front, setFront] = useState<any>("");
-  const [back, setBack] = useState<any>("");
+  const [{ front, back }, setFiles] = useState<{
+    front: string | undefined;
+    back: string | undefined;
+  }>({ front: undefined, back: undefined });
+
   const [amount, setAmount] = useState<any>("");
   const [validating, setValidating] = useState(false);
   const [result, setResult] = useState(false);
   const [change, setChange] = useState(true);
   const [success, setSuccess] = useState(false);
-  const [userDetails, setUserDetails] = useState(
-    getLocalStorageItem("userDetails")
-  );
-
-  const proceedFunction = () => {
-    setResult(true);
-  };
+  const [userDetails] = useState(getLocalStorageItem("userDetails"));
 
   const closeResult = () => {
     setResult(false);
@@ -54,7 +50,7 @@ export default function ChequeDepositForm() {
       .then((newResponse) => {
         console.log(newResponse, "The otp response");
         const response = deCryptedData(newResponse.data);
-        console.log(response);
+        // console.log(response);
 
         setSuccess(true);
 
@@ -71,11 +67,11 @@ export default function ChequeDepositForm() {
       });
   };
   return (
-    <>
+    <div className={styles.paddingContainer}>
       {success ? (
         <ChequeDepositSuccess />
       ) : (
-        <div>
+        <>
           <h1 className={styles.header}>Cheque deposit details</h1>
           <p className={styles.paragraph}>
             The file format should be JPEG or PDF
@@ -91,26 +87,26 @@ export default function ChequeDepositForm() {
                 <div className={styles.shownAmount}>
                   <p>Amount</p>
                   <div
-                    className={styles.shownAmountContainer}
-                  >{`N${amount}`}</div>
+                    className={styles.shownAmountContainer}>{`N${amount}`}</div>
                 </div>
                 <div className={styles.slider}>
                   <div className={styles.imgHolder}>
                     {change ? (
-                      <img src={front} alt="" className={styles.imgCorn} />
+                      <img src={front} alt='' className={styles.imgCorn} />
                     ) : (
-                      <img src={back} alt="" className={styles.imgCorn} />
+                      <img src={back} alt='' className={styles.imgCorn} />
                     )}
                   </div>
                   <div>
                     <img
                       src={shift}
-                      alt=""
+                      alt=''
                       onClick={() => setChange((prevState) => !prevState)}
                       className={styles.shift}
                     />
                   </div>
                 </div>
+
                 <div className={styles.ErrorButtonFlex}>
                   <button className={styles.ErrorCancel} onClick={closeResult}>
                     Edit
@@ -125,21 +121,18 @@ export default function ChequeDepositForm() {
                         alignContent: "center",
                         width: "100%",
                         height: "100%",
-                      }}
-                    >
+                      }}>
                       <div
-                        className="spinner-border text-danger mb-4"
-                        role="status"
-                      >
-                        <span className="sr-only"></span>
+                        className='spinner-border text-danger mb-4'
+                        role='status'>
+                        <span className='sr-only'></span>
                       </div>
                     </div>
                   ) : (
                     <button
                       className={styles.ErrorRetry}
-                      type="submit"
-                      onClick={submitChequeDepositForm}
-                    >
+                      type='submit'
+                      onClick={submitChequeDepositForm}>
                       Submit
                     </button>
                   )}
@@ -149,61 +142,67 @@ export default function ChequeDepositForm() {
           )}
           <>
             <div className={styles.uploadRow}>
-              <Front front={front} setFront={setFront} />
-              <Back back={back} setBack={setBack} />
+              <UploadTemp
+                name='Front'
+                image={front}
+                onChange={(image) =>
+                  setFiles((state) => ({ back: state.back, front: image }))
+                }
+              />
+              <UploadTemp
+                name='Back'
+                image={back}
+                onChange={(image) =>
+                  setFiles((state) => ({ front: state.front, back: image }))
+                }
+              />
             </div>
-            <div className="col-lg-6 mr-2">
-              <label htmlFor="streetname" className="label_text">
+            <div className=''>
+              <label htmlFor='streetname' className='label_text'>
                 Enter amount
               </label>
               <input
                 onChange={(e) => setAmount(e.target.value)}
                 value={amount}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter amount"
+                type='text'
+                className='form-control bg-white border-dark w-full'
+                placeholder='Enter amount'
               />
             </div>
             <div className={styles.flexButton}>
               <button className={styles.previous}>Previous</button>
 
-              {amount.length > 1 && front.length > 1 && back.length > 1 ? (
-                <>
-                  {validating ? (
+              <>
+                {validating ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      alignContent: "center",
+                      width: "100%",
+                      height: "100%",
+                    }}>
                     <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        alignContent: "center",
-                        width: "100%",
-                        height: "100%",
-                      }}
-                    >
-                      <div
-                        className="spinner-border text-danger mb-4"
-                        role="status"
-                      >
-                        <span className="sr-only"></span>
-                      </div>
+                      className='spinner-border text-danger mb-4'
+                      role='status'>
+                      <span className='sr-only'></span>
                     </div>
-                  ) : (
-                    <button
-                      className={styles.submitActive}
-                      type="submit"
-                      onClick={proceedFunction}
-                    >
-                      Proceed
-                    </button>
-                  )}
-                </>
-              ) : (
-                <button className={styles.submit}>Proceed</button>
-              )}
+                  </div>
+                ) : (
+                  <button
+                    disabled={!(amount.length > 1 && !!front && !!back)}
+                    className={styles.submit}
+                    type='submit'
+                    onClick={() => setResult(true)}>
+                    Proceed
+                  </button>
+                )}
+              </>
             </div>
           </>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 }
