@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./style.module.css";
 import shift from "../../../assets/downloads/shift.svg";
 import ChequeDepositSuccess from "./ChequeDepositSuccess";
@@ -11,6 +11,9 @@ import { getLocalStorageItem } from "../../../utils/localStorage";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import axios from "axios";
 import UploadTemp from "./UploadTemp";
+import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack";
+// import pdf from "../../../../src/assets/downloads/quotation.pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface Images {
   front: { file: File | null; url: string | undefined };
@@ -198,22 +201,14 @@ const PreviewModal = ({
           <p>{`N${amount}`}</p>
         </div>
         <div className={styles.slider}>
-          <div className={styles.imgHolder}>
-            {face === "front" ? (
-              <img src={front.url} alt='' />
-            ) : (
-              <img src={back.url} alt='' />
-            )}
-            <button
-              onClick={() =>
-                setFace((prevState) =>
-                  prevState === "front" ? "back" : "front"
-                )
-              }
-              className={styles.shift}>
-              <img src={shift} alt='' />
-            </button>
-          </div>
+          {face === "front" ? <Preview {...front} /> : <Preview {...back} />}
+          <button
+            onClick={() =>
+              setFace((prevState) => (prevState === "front" ? "back" : "front"))
+            }
+            className={styles.shift}>
+            <img src={shift} alt='' />
+          </button>
 
           <div className={styles.indicators}>
             <div
@@ -259,5 +254,25 @@ const PreviewModal = ({
         </div>
       </div>
     </div>
+  );
+};
+
+const Preview = (props: { file: File; url: string }) => {
+  const { file, url } = useMemo(() => props, [props]);
+
+  return (
+    <>
+      {file.type === "application/pdf" ? (
+        <div className={styles.pdfPage}>
+          <Document file={url}>
+            <Page pageNumber={1} height={300} />
+          </Document>
+        </div>
+      ) : (
+        <div className={styles.imgHolder}>
+          <img src={url} alt='' />
+        </div>
+      )}
+    </>
   );
 };

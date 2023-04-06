@@ -343,11 +343,27 @@
   background-color: #000000e4;
 }
 
+.pdfPage {
+  width: fit-content;
+  border-radius: 20px;
+  overflow: hidden;
+  max-height: 300px;
+  height: 100%;
+  margin: auto;
+}
+
 @media screen and (max-width: 900px) {
   .signatureCanvas {
     width: 100%;
   }
   .imgHolder {
+    position: relative;
+    height: 200px;
+    width: 70%;
+    margin: auto;
+  }
+
+  .pdfPage {
     position: relative;
     height: 200px;
     width: 70%;

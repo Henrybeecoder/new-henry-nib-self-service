@@ -46,8 +46,8 @@ const UploadTemp = ({ name, image, onChange }: Props) => {
 
   const { getRootProps, getInputProps, isDragReject } = useDropzone({
     accept: {
-      "image/jpeg": [],
-      "image/pdf": [],
+      "image/jpeg": [".jpg", ".jpeg"],
+      "application/pdf": [".pdf"],
     },
     onDrop,
     multiple: false,
