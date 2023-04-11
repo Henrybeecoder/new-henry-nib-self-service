@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "react-hot-toast";
 import { getLocalStorageItem } from "../../../utils/localStorage";
 import ChequeRequestSuccess from "./ChequeRequestSuccess";
+import { PrevButton } from "../../Buttons";
 
 export default function ChequeRequestForm() {
   const [validating, setValidating] = useState(false);
@@ -1709,8 +1710,7 @@ export default function ChequeRequestForm() {
                 className={
                   selectBranchPickup ? `${styles.active}` : styles.firstcon
                 }
-                onClick={handleBranchPickup}
-              >
+                onClick={handleBranchPickup}>
                 <p>Branch Pickup</p>
                 <div className={styles.box}>Free</div>
               </div>
@@ -1718,8 +1718,7 @@ export default function ChequeRequestForm() {
                 className={
                   selectHomeDelivery ? `${styles.active}` : styles.secondCon
                 }
-                onClick={handleHomeDelivery}
-              >
+                onClick={handleHomeDelivery}>
                 <p>Home Delivery</p>
                 <div className={styles.box}>1500</div>
               </div>
@@ -1727,15 +1726,15 @@ export default function ChequeRequestForm() {
           </div>
           {selectBranchPickup && (
             <>
-              <label className="label_text">
+              <label className='label_text'>
                 Would you be kind enough to choose a branch of your choice for
                 the cheque collection?
               </label>
               <div className={styles.selectFlex}>
                 <div className={styles.singleSelect}>
-                  <label className="label_text">State</label>
+                  <label className='label_text'>State</label>
                   <select value={state} onChange={handleStateChange}>
-                    <option value="">Select state</option>
+                    <option value=''>Select state</option>
                     {states.map((state) => {
                       return (
                         <option key={state.code} value={state.name}>
@@ -1746,9 +1745,9 @@ export default function ChequeRequestForm() {
                   </select>
                 </div>
                 <div className={styles.singleSelect}>
-                  <label className="label_text">Branch</label>
+                  <label className='label_text'>Branch</label>
                   <select value={branch} onChange={handleBranchChange}>
-                    <option value="">Select Branch</option>
+                    <option value=''>Select Branch</option>
 
                     {branchList.map((state) => {
                       return (
@@ -1765,60 +1764,60 @@ export default function ChequeRequestForm() {
           {selectHomeDelivery && (
             <>
               <div className={styles.formRow}>
-                <div className="col-lg-6 mr-2">
-                  <label className="label_text">House number</label>
+                <div className='col-lg-6 mr-2'>
+                  <label className='label_text'>House number</label>
                   <input
                     onChange={(e) => setHouseNumber(e.target.value)}
                     value={houseNumber}
-                    type="text"
-                    className="form-control bg-white border-dark"
-                    placeholder="Enter house Number"
+                    type='text'
+                    className='form-control bg-white border-dark'
+                    placeholder='Enter house Number'
                   />
                 </div>
-                <div className="col-lg-6">
-                  <label className="label_text">Street name</label>
+                <div className='col-lg-6'>
+                  <label className='label_text'>Street name</label>
                   <input
                     onChange={(e) => setStreetName(e.target.value)}
                     value={streetName}
-                    type="text"
-                    className="form-control bg-white border-dark"
-                    placeholder="Enter street name"
+                    type='text'
+                    className='form-control bg-white border-dark'
+                    placeholder='Enter street name'
                   />
                   {/* </div>
           </div> */}
                 </div>
               </div>
-              <div className="form-group" style={{ margin: " 10px 13px" }}>
-                <label className="label_text">Nearest bus-stop/landmark</label>
+              <div className='form-group' style={{ margin: " 10px 13px" }}>
+                <label className='label_text'>Nearest bus-stop/landmark</label>
                 <input
-                  type="text"
-                  className="form-control bg-white border-dark"
-                  placeholder="Enter Nearest bus-stop/landmark"
+                  type='text'
+                  className='form-control bg-white border-dark'
+                  placeholder='Enter Nearest bus-stop/landmark'
                   onChange={(e) => setBusStop(e.target.value)}
                   value={busStop}
                 />
               </div>
-              <div className="form-group" style={{ margin: " 10px 13px" }}>
-                <label className="label_text">Area/State</label>
+              <div className='form-group' style={{ margin: " 10px 13px" }}>
+                <label className='label_text'>Area/State</label>
                 <input
-                  type="text"
-                  className="form-control bg-white border-dark"
-                  placeholder="Enter Area/state"
+                  type='text'
+                  className='form-control bg-white border-dark'
+                  placeholder='Enter Area/state'
                   onChange={(e) => setArea(e.target.value)}
                   value={area}
                 />
               </div>
-              <div className="form-group" style={{ margin: " 10px 13px" }}>
+              <div className='form-group' style={{ margin: " 10px 13px" }}>
                 <input
-                  type="text"
-                  className="form-control bg-white border-dark"
+                  type='text'
+                  className='form-control bg-white border-dark'
                   value={`${houseNumber}${" "}${streetName}${" "}${busStop}`}
                 />
               </div>
             </>
           )}
           <div className={styles.totalCost}>
-            <label className="label_text">Total cost</label>
+            <label className='label_text'>Total cost</label>
             <div className={styles.totalCostBox}>
               <div className={styles.ice}>
                 <p>Chequebook * 1</p>
@@ -1854,18 +1853,16 @@ export default function ChequeRequestForm() {
             </div>
           </div>
           <div className={styles.flexButton}>
-            <button className={styles.previous}>Previous</button>
-
+            <PrevButton />
             {validating ? (
-              <div className="spinner-border text-danger mb-4" role="status">
-                <span className="sr-only"></span>
+              <div className='spinner-border text-danger mb-4' role='status'>
+                <span className='sr-only'></span>
               </div>
             ) : (
               <button
                 className={styles.submit}
-                type="submit"
-                onClick={formik.handleSubmit}
-              >
+                type='submit'
+                onClick={formik.handleSubmit}>
                 Submit
               </button>
             )}

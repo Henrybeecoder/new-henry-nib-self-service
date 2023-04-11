@@ -4,25 +4,29 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import carlender from "../../../assets/images/calender.svg";
 import cameraX from "../../../assets/images/cameraX.svg";
-import { WebcamCapture } from "../../../Containers/TakePicture";
+// import { WebcamCapture } from "../../../Containers/TakePicture";
 import { useForm } from "react-hook-form";
 import PhoneNumberSucess from "./PhoneNumberSuccess";
-import { getLocalStorageItem } from "../../../utils/localStorage";
 import axios from "axios";
 import { baseUrl } from "../../../utils/baseUrl";
 import * as toast from "../../../utils/makeToast";
 import "react-toastify/dist/ReactToastify.css";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 import SignaturePad from "react-signature-canvas";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
+import { useUserDetails } from "../../../utils/Hooks";
+import { useDispatch } from "react-redux";
+import { setAccountOpeningStep } from "../../../redux/accountOpening";
+import { PrevButton } from "../../Buttons";
 
 export default function UpdatePhoneNumber({
   webClick,
   image,
   generatedNumber,
-  validated,
 }) {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const sigCanvas = useRef(null);
+  const dispatch = useDispatch();
+  const { handleSubmit } = useForm();
   const [success, setSuccess] = useState(false);
   const onSubmit = (data) => {
     SubmitPhoneNumberForm();
@@ -31,13 +35,9 @@ export default function UpdatePhoneNumber({
 
   const [NewPhoneNumber, setNewPhoneNumber] = useState("");
   const [validating, setValidating] = useState(false);
-  const [eSignature, setESignature] = useState("");
-  const [userDetails, setUserDetails] = useState(
-    getLocalStorageItem("userDetails")
-  );
+  const userDetails = useUserDetails();
 
   const SubmitPhoneNumberForm = () => {
-    //@ts-ignore
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
     setValidating(true);
     let PhoneNumberPayload = {
@@ -73,8 +73,6 @@ export default function UpdatePhoneNumber({
 
   const [imageURL, setImageURL] = useState(null); // create a state that will contain our image url
 
-  const sigCanvas = useRef({});
-
   //@ts-ignore
   const clear = () => sigCanvas.current.clear();
 
@@ -92,30 +90,30 @@ export default function UpdatePhoneNumber({
             <p className={styles.paragraph}>
               I,{" "}
               <input
-                type="text"
-                placeholder="insert full name"
+                type='text'
+                placeholder='insert full name'
                 value={userDetails.name}
                 required
               />{" "}
               with account number{" "}
               <input
-                type="text"
-                placeholder="insert account name"
+                type='text'
+                placeholder='insert account name'
                 value={userDetails.accountNumber}
                 required
               />{" "}
               would like to update my phone number registered with the stated
               account from{" "}
               <input
-                type="text"
-                placeholder="insert old phone number"
+                type='text'
+                placeholder='insert old phone number'
                 value={userDetails.mobile}
                 required
               />{" "}
               to{" "}
               <input
-                type="text"
-                placeholder="insert new phone number"
+                type='text'
+                placeholder='insert new phone number'
                 onChange={(e) => setNewPhoneNumber(e.target.value)}
                 value={NewPhoneNumber}
                 required
@@ -142,12 +140,6 @@ export default function UpdatePhoneNumber({
                     Clear
                   </button>
                 </div>
-                {/* <textarea
-                  type="text"
-                  onChange={(e) => setESignature(e.target.value)}
-                  value={eSignature}
-                  required
-                ></textarea> */}
                 <SignaturePad
                   ref={sigCanvas}
                   canvasProps={{
@@ -188,26 +180,25 @@ export default function UpdatePhoneNumber({
                   ) : (
                     <button className={styles.takePicture} onClick={webClick}>
                       <p>Take live picture</p>
-                      <img src={cameraX} alt="" />
+                      <img src={cameraX} alt='' />
                     </button>
                   )}
                 </div>
               </div>
             </div>
             <div className={styles.flexButton}>
-              <button className={styles.previous}>Previous</button>
+              <PrevButton />
 
               {generatedNumber > 19 ? (
                 <>
                   {validating ? (
                     <div
-                      className="spinner-border text-danger mb-4"
-                      role="status"
-                    >
-                      <span className="sr-only"></span>
+                      className='spinner-border text-danger mb-4'
+                      role='status'>
+                      <span className='sr-only'></span>
                     </div>
                   ) : (
-                    <button className={styles.submitActive} type="submit">
+                    <button className={styles.submitActive} type='submit'>
                       Submit
                     </button>
                   )}
@@ -226,12 +217,12 @@ export default function UpdatePhoneNumber({
 const ExampleCustomInput = React.forwardRef(({ value, onClick, ref }) => (
   <div>
     <input
-      type="text"
+      type='text'
       className={styles.customInput}
       onClick={onClick}
       ref={ref}
       value={value}
     />
-    <img src={carlender} />
+    <img alt='' src={carlender} />
   </div>
 ));

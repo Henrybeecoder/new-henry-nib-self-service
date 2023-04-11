@@ -13,18 +13,21 @@ import { useDropzone } from "react-dropzone";
 import uparrow from "../../../assets/images/uparrow.svg";
 import Done from "../../../assets/images/Done.svg";
 import Icon_L from "../../../assets/images/Icon_L.svg";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+// import { useFormik } from "formik";
+// import * as Yup from "yup";
 import AccountSuccess from "./AccountSuccess";
-import PopupModal from "../../../Containers/popupModal";
+// import PopupModal from "../../../Containers/popupModal";
 import modalcancel from "../../../assets/images/modalcancel.svg";
 import SignaturePad from "react-signature-canvas";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import carlender from "../../../assets/images/calender.svg";
+// import carlender from "../../../assets/images/calender.svg";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import { getMonth, getYear } from "date-fns";
 import range from "lodash/range";
+import { useDispatch } from "react-redux";
+import { setAccountOpeningStep } from "../../../redux/accountOpening";
+import { PrevButton } from "../../Buttons";
 
 export default function AccountReactivationForm({
   webClick,
@@ -32,7 +35,8 @@ export default function AccountReactivationForm({
   generatedNumber,
   validated,
 }) {
-  const [eSignature, setESignature] = useState("");
+  const dispatch = useDispatch();
+  // const [eSignature, setESignature] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [residentialAdresss, setResidentialAddress] = useState("");
@@ -49,11 +53,11 @@ export default function AccountReactivationForm({
   const [issueDate, setIssueDate] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cardName, setCardName] = useState("");
-  const [uploadfiles, setFiles] = useState("");
+  // const [uploadfiles, setFiles] = useState("");
   const [idValidated, setIdValidated] = useState("");
   const [success, setSuccess] = useState(false);
   const [idCardtype, setIdCardType] = useState<any>(0);
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+  const { acceptedFiles } = useDropzone();
   const [initialPopup, setInitialPopup] = useState(true);
 
   const files = acceptedFiles.map((file) => {
@@ -97,9 +101,9 @@ export default function AccountReactivationForm({
 
   const cardTypeValue: string = idCardtype.toString();
 
-  const submit = () => {
-    setSuccess(true);
-  };
+  // const submit = () => {
+  //   setSuccess(true);
+  // };
 
   //For uploads
 
@@ -261,11 +265,12 @@ export default function AccountReactivationForm({
         <AccountSuccess />
       ) : (
         <div className={styles.accountReactivation}>
-          <Toaster position="top-center" reverseOrder={false} />
+          <Toaster position='top-center' reverseOrder={false} />
           {initialPopup && (
             <div className={styles.popupBg}>
               <div className={styles.popupContainer}>
                 <img
+                  alt=''
                   src={modalcancel}
                   className={styles.modalcancel}
                   onClick={() => setInitialPopup(false)}
@@ -280,8 +285,7 @@ export default function AccountReactivationForm({
                 </p>
                 <button
                   className={styles.popupButton}
-                  onClick={() => setInitialPopup(false)}
-                >
+                  onClick={() => setInitialPopup(false)}>
                   proceed
                 </button>
               </div>
@@ -293,164 +297,160 @@ export default function AccountReactivationForm({
             Hello, <b>{userDetails.name}</b>, welcome to Sterling Alternative
             Finance
           </p>
-          <div className="form-group" style={{ margin: " 10px 13px" }}>
-            <label className="label_text">Account name</label>
+          <div className='form-group' style={{ margin: " 10px 13px" }}>
+            <label className='label_text'>Account name</label>
             <input
-              type="text"
+              type='text'
               value={userDetails.name}
-              className="form-control bg-white border-dark"
+              className='form-control bg-white border-dark'
               style={{ margin: " 10px 10px" }}
             />
           </div>
-          <div className="bvn_val mb-4" id="fader">
-            <img src={Icon_L} alt="" />
-            <small className="text-danger ml-4 font-weight-bold">
+          <div className='bvn_val mb-4' id='fader'>
+            <img src={Icon_L} alt='' />
+            <small className='text-danger ml-4 font-weight-bold'>
               <b>Update your phone number, address, email if its changed</b>
             </small>
           </div>
           <div className={styles.formRow}>
-            <div className="col-lg-6 mr-2">
-              <label className="label_text">Phone number</label>
+            <div className='col-lg-6 mr-2'>
+              <label className='label_text'>Phone number</label>
               <input
                 value={userDetails.mobile}
-                type="text"
-                className="form-control bg-white border-dark"
+                type='text'
+                className='form-control bg-white border-dark'
               />
             </div>
-            <div className="col-lg-6">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6'>
+              <label htmlFor='streetname' className='label_text'>
                 New phone number
               </label>
               <input
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 value={phoneNumber}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter new phone number"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter new phone number'
               />
             </div>
           </div>
           <div className={styles.formRow}>
-            <div className="col-lg-6 mr-2">
-              <label className="label_text">Email address</label>
+            <div className='col-lg-6 mr-2'>
+              <label className='label_text'>Email address</label>
               <input
                 value={userDetails.email}
-                type="text"
-                className="form-control bg-white border-dark"
+                type='text'
+                className='form-control bg-white border-dark'
               />
             </div>
-            <div className="col-lg-6">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6'>
+              <label htmlFor='streetname' className='label_text'>
                 New email address
               </label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter new email address"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter new email address'
               />
               {/* </div>
           </div> */}
             </div>
           </div>
-          <div className="form-group" style={{ margin: " 10px 13px" }}>
-            <label className="label_text">Exsiting residential address</label>
+          <div className='form-group' style={{ margin: " 10px 13px" }}>
+            <label className='label_text'>Exsiting residential address</label>
             <input
               onChange={(e) => setResidentialAddress(e.target.value)}
               value={residentialAdresss}
-              type="text"
-              className="form-control bg-white border-dark"
-              placeholder="Residential address"
+              type='text'
+              className='form-control bg-white border-dark'
+              placeholder='Residential address'
             />
           </div>
           <label
-            htmlFor="residentialaddress"
-            className="label_text my-2 font-weight-bold"
-          >
+            htmlFor='residentialaddress'
+            className='label_text my-2 font-weight-bold'>
             <b>New residential address</b>
           </label>
 
           <div className={styles.formRow}>
-            <div className="col sec">
-              <label htmlFor="housenumber" className="label_text">
+            <div className='col sec'>
+              <label htmlFor='housenumber' className='label_text'>
                 House number
               </label>
               <input
-                name="houseNumber"
+                name='houseNumber'
                 onChange={(e) => setHouseNumber(e.target.value)}
                 value={houseNumber}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter house number"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter house number'
               />
             </div>
-            <div className="col-lg-6">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6'>
+              <label htmlFor='streetname' className='label_text'>
                 Street name
               </label>
               <input
-                name="streetName"
+                name='streetName'
                 onChange={(e) => setStreetName(e.target.value)}
                 value={streetName}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter Street Name"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter Street Name'
               />
             </div>
           </div>
-          <div className="form-group" style={{ margin: " 10px 13px" }}>
-            <label htmlFor="streetname" className="label_text">
+          <div className='form-group' style={{ margin: " 10px 13px" }}>
+            <label htmlFor='streetname' className='label_text'>
               Nearest bus-top/landmark
             </label>
             <input
-              name="nearestBustopLandmark"
+              name='nearestBustopLandmark'
               onChange={(e) => setBusStop(e.target.value)}
               value={busStop}
-              type="text"
-              className="form-control bg-white border-dark"
-              placeholder="Enter nearest bus-stop or landmark"
+              type='text'
+              className='form-control bg-white border-dark'
+              placeholder='Enter nearest bus-stop or landmark'
             />
           </div>
-          <div className="form-group" style={{ margin: " 10px 13px" }}>
-            <label htmlFor="housenumber" className="label_text">
+          <div className='form-group' style={{ margin: " 10px 13px" }}>
+            <label htmlFor='housenumber' className='label_text'>
               Area/State
             </label>
             <input
               onChange={(e) => setAreaState(e.target.value)}
               value={areaState}
-              type="text"
-              className="form-control bg-white border-dark"
-              placeholder="Enter area of state"
+              type='text'
+              className='form-control bg-white border-dark'
+              placeholder='Enter area of state'
             />
           </div>
 
-          <label htmlFor="idcardtype" className="label_text">
+          <label htmlFor='idcardtype' className='label_text'>
             Select identity card type
           </label>
           <ul
-            className="nav nav-pills identity-tab mb-3 nav-fill"
-            id="pills-tab"
-            role="tablist"
-          >
+            className='nav nav-pills identity-tab mb-3 nav-fill'
+            id='pills-tab'
+            role='tablist'>
             {meansOfIdentification.map((identification) => {
               return (
                 <li
-                  className="nav-item"
+                  className='nav-item'
                   key={identification.id}
-                  onClick={() => handleSetIdCardType(identification.id)}
-                >
+                  onClick={() => handleSetIdCardType(identification.id)}>
                   <a
                     className={`nav-link text-nowrap pl-0 pt-2 ${
                       identification.id === 0 ? `${styles.active}` : ""
                     }`}
-                    id="pills-int-tab"
-                    data-toggle="pill"
-                    href="#pills-int"
-                    role="tab"
-                    aria-controls="pills-int"
-                    aria-selected="true"
-                  >
+                    id='pills-int-tab'
+                    data-toggle='pill'
+                    href='#pills-int'
+                    role='tab'
+                    aria-controls='pills-int'
+                    aria-selected='true'>
                     {identification.text}
                   </a>
                 </li>
@@ -461,8 +461,8 @@ export default function AccountReactivationForm({
             <div className={styles.form}>
               <label>ID card Number</label>
               <input
-                type="text"
-                placeholder="Enter ID card number"
+                type='text'
+                placeholder='Enter ID card number'
                 onChange={(e) => setIdCardNumber(e.target.value)}
                 value={idCardNumber}
                 required
@@ -493,18 +493,15 @@ export default function AccountReactivationForm({
                       margin: 10,
                       display: "flex",
                       justifyContent: "center",
-                    }}
-                  >
+                    }}>
                     <button
                       onClick={decreaseMonth}
-                      disabled={prevMonthButtonDisabled}
-                    >
+                      disabled={prevMonthButtonDisabled}>
                       {"<"}
                     </button>
                     <select
                       value={getYear(date)}
-                      onChange={({ target: { value } }) => changeYear(value)}
-                    >
+                      onChange={({ target: { value } }) => changeYear(value)}>
                       {years.map((option) => (
                         <option key={option} value={option}>
                           {option}
@@ -516,8 +513,7 @@ export default function AccountReactivationForm({
                       value={months[getMonth(date)]}
                       onChange={({ target: { value } }) =>
                         changeMonth(months.indexOf(value))
-                      }
-                    >
+                      }>
                       {months.map((option) => (
                         <option key={option} value={option}>
                           {option}
@@ -527,8 +523,7 @@ export default function AccountReactivationForm({
 
                     <button
                       onClick={increaseMonth}
-                      disabled={nextMonthButtonDisabled}
-                    >
+                      disabled={nextMonthButtonDisabled}>
                       {">"}
                     </button>
                   </div>
@@ -565,18 +560,15 @@ export default function AccountReactivationForm({
                         margin: 10,
                         display: "flex",
                         justifyContent: "center",
-                      }}
-                    >
+                      }}>
                       <button
                         onClick={decreaseMonth}
-                        disabled={prevMonthButtonDisabled}
-                      >
+                        disabled={prevMonthButtonDisabled}>
                         {"<"}
                       </button>
                       <select
                         value={getYear(date)}
-                        onChange={({ target: { value } }) => changeYear(value)}
-                      >
+                        onChange={({ target: { value } }) => changeYear(value)}>
                         {years.map((option) => (
                           <option key={option} value={option}>
                             {option}
@@ -588,8 +580,7 @@ export default function AccountReactivationForm({
                         value={months[getMonth(date)]}
                         onChange={({ target: { value } }) =>
                           changeMonth(months.indexOf(value))
-                        }
-                      >
+                        }>
                         {months.map((option) => (
                           <option key={option} value={option}>
                             {option}
@@ -599,8 +590,7 @@ export default function AccountReactivationForm({
 
                       <button
                         onClick={increaseMonth}
-                        disabled={nextMonthButtonDisabled}
-                      >
+                        disabled={nextMonthButtonDisabled}>
                         {">"}
                       </button>
                     </div>
@@ -617,8 +607,8 @@ export default function AccountReactivationForm({
           <div className={styles.nameForm}>
             <label>ID card name</label>
             <input
-              type="text"
-              placeholder="Enter your name from the ID card"
+              type='text'
+              placeholder='Enter your name from the ID card'
               onChange={(e) => setCardName(e.target.value)}
               value={cardName}
               required
@@ -630,7 +620,7 @@ export default function AccountReactivationForm({
               <input
                 style={{ display: "none" }}
                 ref={frontPageRef}
-                type="file"
+                type='file'
                 onChange={handleFrontPageChange}
               />
 
@@ -645,7 +635,7 @@ export default function AccountReactivationForm({
                     </p>
                   )}
                 </p>
-                <img src={uparrow} alt="" />
+                <img src={uparrow} alt='' />
               </div>
               {/* <aside>
             <h4>Files</h4>
@@ -656,8 +646,7 @@ export default function AccountReactivationForm({
               onClick={validateID}
               className={
                 idValidated ? `${styles.validatedId}` : `${styles.validate}`
-              }
-            >
+              }>
               {idValidated && <img src={Done} />}
               {idValidated ? "Validated" : "Validate ID"}
             </button>
@@ -669,14 +658,13 @@ export default function AccountReactivationForm({
               <input
                 style={{ display: "none" }}
                 ref={accountActivationRef}
-                type="file"
+                type='file'
                 onChange={handleAccountActivationChange}
               />
 
               <div
                 className={styles.upload}
-                onClick={handleAccountActivationClick}
-              >
+                onClick={handleAccountActivationClick}>
                 <p>
                   {accountActivation.length > 0 ? (
                     <p>File Uploaded</p>
@@ -687,7 +675,7 @@ export default function AccountReactivationForm({
                     </p>
                   )}
                 </p>
-                <img src={uparrow} alt="" />
+                <img src={uparrow} alt='' />
               </div>
             </div>
             <div className={styles.secondUpload}>
@@ -696,7 +684,7 @@ export default function AccountReactivationForm({
               <input
                 style={{ display: "none" }}
                 ref={utilityBillRef}
-                type="file"
+                type='file'
                 onChange={handleUtilityBillChange}
               />
 
@@ -711,7 +699,7 @@ export default function AccountReactivationForm({
                     </p>
                   )}
                 </p>
-                <img src={uparrow} alt="" />
+                <img src={uparrow} alt='' />
               </div>
             </div>
           </div>
@@ -727,7 +715,7 @@ export default function AccountReactivationForm({
                   {imageURL ? (
                     <img
                       src={imageURL}
-                      alt="my signature"
+                      alt='my signature'
                       style={{
                         display: "block",
                         margin: "0 auto",
@@ -759,8 +747,7 @@ export default function AccountReactivationForm({
               <button
                 className={styles.takePicture}
                 style={{ marginTop: "10px" }}
-                onClick={save}
-              >
+                onClick={save}>
                 <p>Save E-signature</p>
               </button>
             </div>
@@ -799,30 +786,28 @@ export default function AccountReactivationForm({
                 ) : (
                   <button className={styles.takePicture} onClick={webClick}>
                     <p>Take live picture</p>
-                    <img src={cameraX} alt="" />
+                    <img src={cameraX} alt='' />
                   </button>
                 )}
               </div>
             </div>
           </div>
           <div className={styles.flexButton}>
-            <button className={styles.previous}>Previous</button>
+            <PrevButton />
 
             {generatedNumber > 19 ? (
               <>
                 {validating ? (
                   <div
-                    className="spinner-border text-danger mb-4"
-                    role="status"
-                  >
-                    <span className="sr-only"></span>
+                    className='spinner-border text-danger mb-4'
+                    role='status'>
+                    <span className='sr-only'></span>
                   </div>
                 ) : (
                   <button
                     className={styles.submitActive}
-                    type="submit"
-                    onClick={SubmitAccountReactivationForm}
-                  >
+                    type='submit'
+                    onClick={SubmitAccountReactivationForm}>
                     Submit
                   </button>
                 )}
@@ -841,7 +826,7 @@ const ExampleCustomInput = React.forwardRef(
   ({ value, onClick, placeholder }, ref) => (
     <div>
       <input
-        type="text"
+        type='text'
         className={styles.customInput}
         onClick={onClick}
         ref={ref}

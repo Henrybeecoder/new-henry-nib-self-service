@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import success from "../../../../assets/images/success-check.svg";
 import styles from "./style.module.css";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
 export default function AccountSuccess() {
   const navigate = useNavigate();

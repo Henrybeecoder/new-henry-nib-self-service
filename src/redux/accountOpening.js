@@ -4,7 +4,7 @@ export const accountOpeningSlice = createSlice({
   name: "accountOpening",
   initialState: {
     accountType: "",
-    accountOpeningStep: "bvn-validation",
+    accountOpeningStep: "account-reactivation",
   },
   reducers: {
     setAccountOpeningDetails: (state, action) => {

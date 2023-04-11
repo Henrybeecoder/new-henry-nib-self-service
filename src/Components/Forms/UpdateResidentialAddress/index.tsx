@@ -24,6 +24,7 @@ import { useDropzone } from "react-dropzone";
 import Done from "../../../assets/images/Done.svg";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import "react-toastify/dist/ReactToastify.css";
+import { PrevButton } from "../../Buttons";
 
 export default function UpdateResidentialAddress({
   webClick,
@@ -176,16 +177,16 @@ export default function UpdateResidentialAddress({
             <p className={styles.paragraph}>
               I,{" "}
               <input
-                type="text"
-                placeholder="insert full name"
+                type='text'
+                placeholder='insert full name'
                 onChange={(e) => setfullname(e.target.value)}
                 value={fullname}
                 required
               />{" "}
               with account number{" "}
               <input
-                type="text"
-                placeholder="insert account number"
+                type='text'
+                placeholder='insert account number'
                 onChange={(e) => setAccountName(e.target.value)}
                 value={accountName}
                 required
@@ -193,16 +194,16 @@ export default function UpdateResidentialAddress({
               would like to update my residential address registered with the
               stated account from{" "}
               <input
-                type="text"
-                placeholder="insert old residential address"
+                type='text'
+                placeholder='insert old residential address'
                 onChange={(e) => setOldResidentialAddress(e.target.value)}
                 value={OldResidentialAddress}
                 required
               />{" "}
               to{" "}
               <input
-                type="text"
-                placeholder="insert new residential address"
+                type='text'
+                placeholder='insert new residential address'
                 onChange={(e) => setNewResidentialAddress(e.target.value)}
                 value={NewResidentialAddress}
                 required
@@ -224,7 +225,7 @@ export default function UpdateResidentialAddress({
                     {imageURL ? (
                       <img
                         src={imageURL}
-                        alt="my signature"
+                        alt='my signature'
                         style={{
                           display: "block",
                           margin: "0 auto",
@@ -251,8 +252,7 @@ export default function UpdateResidentialAddress({
                     backgroundColor: "#F8F8F8",
                     border: "2px solid #1817174a",
                     borderRadius: "8px",
-                  }}
-                >
+                  }}>
                   <SignaturePad
                     ref={sigCanvas}
                     canvasProps={{
@@ -264,8 +264,7 @@ export default function UpdateResidentialAddress({
                 <button
                   className={styles.takePicture}
                   style={{ marginTop: "10px" }}
-                  onClick={save}
-                >
+                  onClick={save}>
                   <p>Save E-signature</p>
                 </button>
               </div>
@@ -279,14 +278,13 @@ export default function UpdateResidentialAddress({
                       <input
                         style={{ display: "none" }}
                         ref={utilityBillRef}
-                        type="file"
+                        type='file'
                         onChange={handleUtilityBillChange}
                       />
 
                       <div
                         className={styles.upload}
-                        onClick={handleUtilityBillClick}
-                      >
+                        onClick={handleUtilityBillClick}>
                         <p>
                           {utilityBill.length > 0 ? (
                             <p>File Uploaded</p>
@@ -297,7 +295,7 @@ export default function UpdateResidentialAddress({
                             </p>
                           )}
                         </p>
-                        <img src={uparrow} alt="" />
+                        <img src={uparrow} alt='' />
                       </div>
                     </div>
                   </div>
@@ -338,7 +336,7 @@ export default function UpdateResidentialAddress({
                   ) : (
                     <button className={styles.takePicture} onClick={webClick}>
                       <p>Take live picture</p>
-                      <img src={cameraX} alt="" />
+                      <img src={cameraX} alt='' />
                     </button>
                   )}
                 </div>
@@ -346,23 +344,21 @@ export default function UpdateResidentialAddress({
               <div className={styles.sign}></div>
             </div>
             <div className={styles.flexButton}>
-              <button className={styles.previous}>Previous</button>
+              <PrevButton />
 
               {generatedNumber > 19 ? (
                 <>
                   {validating ? (
                     <div
-                      className="spinner-border text-danger mb-4"
-                      role="status"
-                    >
-                      <span className="sr-only"></span>
+                      className='spinner-border text-danger mb-4'
+                      role='status'>
+                      <span className='sr-only'></span>
                     </div>
                   ) : (
                     <button
                       className={styles.submitActive}
-                      type="submit"
-                      onClick={SubmitAddressForm}
-                    >
+                      type='submit'
+                      onClick={SubmitAddressForm}>
                       Submit
                     </button>
                   )}

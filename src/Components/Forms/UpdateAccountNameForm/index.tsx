@@ -19,6 +19,7 @@ import AccountNameSuccess from "./AccountNameSuccess";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 // @ts-ignore
 import changeofNameDoc from "../../../assets/downloads/change-of-account-name.docx";
+import { PrevButton } from "../../Buttons";
 
 export default function UpdateAccountNameForm({
   webClick,
@@ -125,66 +126,65 @@ export default function UpdateAccountNameForm({
           <p className={styles.paragraph}>
             The file format should be JPEG or PDF
           </p>
-          <div className="form-group" style={{ margin: " 10px 13px" }}>
-            <label className="label_text">old account name</label>
+          <div className='form-group' style={{ margin: " 10px 13px" }}>
+            <label className='label_text'>old account name</label>
             <input
               value={userDetails.name}
-              type="text"
-              className="form-control bg-white border-dark"
-              placeholder="Old account name"
+              type='text'
+              className='form-control bg-white border-dark'
+              placeholder='Old account name'
             />
           </div>
           <div className={styles.formRow}>
-            <div className="col-lg-6 mr-2">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6 mr-2'>
+              <label htmlFor='streetname' className='label_text'>
                 First name
               </label>
               <input
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstname}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter first name"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter first name'
               />
             </div>
-            <div className="col-lg-6">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6'>
+              <label htmlFor='streetname' className='label_text'>
                 Last name
               </label>
               <input
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastname}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter last name"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter last name'
               />
             </div>
           </div>
           <div className={styles.formRow}>
-            <div className="col-lg-6 mr-2">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6 mr-2'>
+              <label htmlFor='streetname' className='label_text'>
                 Middle name
               </label>
               <input
                 onChange={(e) => setMiddleName(e.target.value)}
                 value={middlename}
-                type="text"
-                className="form-control bg-white border-dark"
-                placeholder="Enter middle name"
+                type='text'
+                className='form-control bg-white border-dark'
+                placeholder='Enter middle name'
               />
             </div>
-            <div className="col-lg-6"></div>
+            <div className='col-lg-6'></div>
           </div>
           <div className={styles.textRow}>
-            <div className="col-lg-6 mr-2">
-              <label htmlFor="streetname" className="label_text">
+            <div className='col-lg-6 mr-2'>
+              <label htmlFor='streetname' className='label_text'>
                 Provide reason for change
               </label>
               <textarea
                 onChange={(e) => setReason(e.target.value)}
                 value={reason}
-                placeholder="Enter reason for change"
-              ></textarea>
+                placeholder='Enter reason for change'></textarea>
             </div>
             <div className={styles.firstUpload}>
               <h5>Upload legal documentation ( Where required )</h5>
@@ -192,14 +192,13 @@ export default function UpdateAccountNameForm({
               <input
                 style={{ display: "none" }}
                 ref={legalDocumentationRef}
-                type="file"
+                type='file'
                 onChange={handleLegalDocumentationChange}
               />
 
               <div
                 className={styles.upload}
-                onClick={handleLegalDocumentationClick}
-              >
+                onClick={handleLegalDocumentationClick}>
                 <p>
                   {legalDocumentation.length > 0 ? (
                     <p>File Uploaded</p>
@@ -210,7 +209,7 @@ export default function UpdateAccountNameForm({
                     </p>
                   )}
                 </p>
-                <img src={uparrow} alt="" />
+                <img src={uparrow} alt='' />
               </div>
             </div>
           </div>
@@ -221,14 +220,13 @@ export default function UpdateAccountNameForm({
               <input
                 style={{ display: "none" }}
                 ref={instructionChangeRef}
-                type="file"
+                type='file'
                 onChange={handleinstructionChange}
               />
 
               <div
                 className={styles.upload}
-                onClick={handleInstructionChangeClick}
-              >
+                onClick={handleInstructionChangeClick}>
                 <p>
                   {instructionChange.length > 0 ? (
                     <p>File Uploaded</p>
@@ -239,7 +237,7 @@ export default function UpdateAccountNameForm({
                     </p>
                   )}
                 </p>
-                <img src={uparrow} alt="" />
+                <img src={uparrow} alt='' />
               </div>
             </div>
             <a href={changeofNameDoc}>
@@ -247,7 +245,7 @@ export default function UpdateAccountNameForm({
                 <p>Download instruction template</p>
                 <img
                   src={Download}
-                  alt="download icon"
+                  alt='download icon'
                   style={{ paddingLeft: "10px" }}
                 />
               </button>
@@ -287,7 +285,7 @@ export default function UpdateAccountNameForm({
                 ) : (
                   <button className={styles.takePicture} onClick={webClick}>
                     <p>Take live picture</p>
-                    <img src={cameraX} alt="" />
+                    <img src={cameraX} alt='' />
                   </button>
                 )}
               </div>
@@ -295,7 +293,7 @@ export default function UpdateAccountNameForm({
             <div className={styles.sign}></div>
           </div>
           <div className={styles.flexButton}>
-            <button className={styles.previous}>Previous</button>
+            <PrevButton />
 
             {generatedNumber > 19 ? (
               <>
@@ -308,21 +306,18 @@ export default function UpdateAccountNameForm({
                       alignContent: "center",
                       width: "100%",
                       height: "100%",
-                    }}
-                  >
+                    }}>
                     <div
-                      className="spinner-border text-danger mb-4"
-                      role="status"
-                    >
-                      <span className="sr-only"></span>
+                      className='spinner-border text-danger mb-4'
+                      role='status'>
+                      <span className='sr-only'></span>
                     </div>
                   </div>
                 ) : (
                   <button
                     className={styles.submitActive}
-                    type="submit"
-                    onClick={SubmitAccountNameForm}
-                  >
+                    type='submit'
+                    onClick={SubmitAccountNameForm}>
                     Submit
                   </button>
                 )}

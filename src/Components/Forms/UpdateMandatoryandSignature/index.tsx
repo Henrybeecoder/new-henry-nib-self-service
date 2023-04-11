@@ -17,6 +17,7 @@ import { WebcamCapture } from "../../../Containers/TakePicture";
 import { useForm } from "react-hook-form";
 import MandatorySucess from "./MandatorySuccess";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
+import { PrevButton } from "../../Buttons";
 
 export default function UpdateMandatoryForm({
   webClick,
@@ -144,7 +145,7 @@ export default function UpdateMandatoryForm({
                   {imageURL ? (
                     <img
                       src={imageURL}
-                      alt="my signature"
+                      alt='my signature'
                       style={{
                         display: "block",
                         margin: "0 auto",
@@ -171,8 +172,7 @@ export default function UpdateMandatoryForm({
                   backgroundColor: "#F8F8F8",
                   border: "2px solid #1817174a",
                   borderRadius: "8px",
-                }}
-              >
+                }}>
                 <SignaturePad
                   ref={sigCanvas}
                   canvasProps={{
@@ -184,8 +184,7 @@ export default function UpdateMandatoryForm({
               <button
                 className={styles.takePicture}
                 style={{ marginTop: "10px" }}
-                onClick={save}
-              >
+                onClick={save}>
                 <p>Save E-signature</p>
               </button>
             </div>
@@ -223,30 +222,28 @@ export default function UpdateMandatoryForm({
                 ) : (
                   <button className={styles.takePicture} onClick={webClick}>
                     <p>Take live picture</p>
-                    <img src={cameraX} alt="" />
+                    <img src={cameraX} alt='' />
                   </button>
                 )}
               </div>
             </div>
           </div>
           <div className={styles.flexButton}>
-            <button className={styles.previous}>Previous</button>
+            <PrevButton />
 
             {generatedNumber > 19 ? (
               <>
                 {validating ? (
                   <div
-                    className="spinner-border text-danger mb-4"
-                    role="status"
-                  >
-                    <span className="sr-only"></span>
+                    className='spinner-border text-danger mb-4'
+                    role='status'>
+                    <span className='sr-only'></span>
                   </div>
                 ) : (
                   <button
                     className={styles.submitActive}
-                    type="submit"
-                    onClick={SubmitMandateForm}
-                  >
+                    type='submit'
+                    onClick={SubmitMandateForm}>
                     Submit
                   </button>
                 )}
@@ -265,7 +262,7 @@ export default function UpdateMandatoryForm({
 const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
   <div>
     <input
-      type="text"
+      type='text'
       className={styles.customInput}
       onClick={onClick}
       ref={ref}

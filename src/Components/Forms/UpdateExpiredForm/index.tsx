@@ -15,6 +15,7 @@ import {
 import axios from "axios";
 import { baseUrl } from "../../../utils/baseUrl";
 import ExpiredSuccess from "./ExpiredSuccess";
+import { PrevButton } from "../../Buttons";
 
 export default function UpdateExpiredForm() {
   const [idCardNumber, setIdCardNumber] = useState("");
@@ -105,39 +106,36 @@ export default function UpdateExpiredForm() {
   ];
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position='top-center' reverseOrder={false} />
       {success ? (
         <ExpiredSuccess />
       ) : (
         <>
           <h1 className={styles.header}>Update Expired ID</h1>
           <p className={styles.paragraph}>Upload means of identification</p>
-          <label htmlFor="idcardtype" className="label_text">
+          <label htmlFor='idcardtype' className='label_text'>
             Select identity card type
           </label>
           <ul
-            className="nav nav-pills identity-tab mb-3 nav-fill"
-            id="pills-tab"
-            role="tablist"
-          >
+            className='nav nav-pills identity-tab mb-3 nav-fill'
+            id='pills-tab'
+            role='tablist'>
             {meansOfIdentification.map((identification) => {
               return (
                 <li
-                  className="nav-item"
+                  className='nav-item'
                   key={identification.id}
-                  onClick={() => handleSetIdCardType(identification.id)}
-                >
+                  onClick={() => handleSetIdCardType(identification.id)}>
                   <a
                     className={`nav-link text-nowrap pl-0 pt-2 ${
                       identification.id == 0 ? `${styles.active}` : ""
                     }`}
-                    id="pills-int-tab"
-                    data-toggle="pill"
-                    href="#pills-int"
-                    role="tab"
-                    aria-controls="pills-int"
-                    aria-selected="true"
-                  >
+                    id='pills-int-tab'
+                    data-toggle='pill'
+                    href='#pills-int'
+                    role='tab'
+                    aria-controls='pills-int'
+                    aria-selected='true'>
                     {identification.text}
                   </a>
                 </li>
@@ -148,8 +146,8 @@ export default function UpdateExpiredForm() {
             <div className={styles.form}>
               <label>ID card Number</label>
               <input
-                type="text"
-                placeholder="Enter ID card number"
+                type='text'
+                placeholder='Enter ID card number'
                 onChange={(e) => setIdCardNumber(e.target.value)}
                 value={idCardNumber}
                 required
@@ -158,8 +156,8 @@ export default function UpdateExpiredForm() {
             <div className={styles.dateform}>
               <label>Issue Date</label>
               <input
-                type="date"
-                placeholder="dd/mm/yyyy"
+                type='date'
+                placeholder='dd/mm/yyyy'
                 onChange={(e) => setIssueDate(e.target.value)}
                 value={issueDate}
                 required
@@ -170,8 +168,8 @@ export default function UpdateExpiredForm() {
               <div className={styles.dateform}>
                 <label>Expiry Date</label>
                 <input
-                  type="date"
-                  placeholder="dd/mm/yyyy"
+                  type='date'
+                  placeholder='dd/mm/yyyy'
                   onChange={(e) => setExpiryDate(e.target.value)}
                   value={expiryDate}
                   required
@@ -182,8 +180,8 @@ export default function UpdateExpiredForm() {
           <div className={styles.nameForm}>
             <label>ID card name</label>
             <input
-              type="text"
-              placeholder="Enter your name from the ID card"
+              type='text'
+              placeholder='Enter your name from the ID card'
               onChange={(e) => setCardName(e.target.value)}
               value={cardName}
               required
@@ -205,7 +203,7 @@ export default function UpdateExpiredForm() {
                       </p>
                     )}
                   </p>
-                  <img src={uparrow} alt="" />
+                  <img src={uparrow} alt='' />
                 </div>
               </div>
               {/* <aside>
@@ -217,30 +215,27 @@ export default function UpdateExpiredForm() {
               onClick={validateID}
               className={
                 idValidated ? `${styles.validatedId}` : `${styles.validate}`
-              }
-            >
-              {idValidated && <img src={Done} />}
+              }>
+              {idValidated && <img alt="" src={Done} />}
               {idValidated ? "Validated" : "Validate ID"}
             </button>
           </div>
           <div className={styles.flexButton}>
-            <button className={styles.previous}>Previous</button>
+            <PrevButton />
 
             {idValidated ? (
               <>
                 {validating ? (
                   <div
-                    className="spinner-border text-danger mb-4"
-                    role="status"
-                  >
-                    <span className="sr-only"></span>
+                    className='spinner-border text-danger mb-4'
+                    role='status'>
+                    <span className='sr-only'></span>
                   </div>
                 ) : (
                   <button
                     className={styles.submitActive}
-                    type="submit"
-                    onClick={SubmitExpiredID}
-                  >
+                    type='submit'
+                    onClick={SubmitExpiredID}>
                     Submit
                   </button>
                 )}

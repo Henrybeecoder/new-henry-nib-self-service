@@ -16,6 +16,7 @@ import { getLocalStorageItem } from "../../../utils/localStorage";
 import SignaturePad from "react-signature-canvas";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import * as EmailValidator from "email-validator";
+import { PrevButton } from "../../Buttons";
 
 export default function UpdateEmailForm({
   webClick,
@@ -97,7 +98,7 @@ export default function UpdateEmailForm({
         <EmailSucess />
       ) : (
         <div className={styles.container}>
-          <Toaster position="top-center" reverseOrder={false} />
+          <Toaster position='top-center' reverseOrder={false} />
 
           <h1 className={styles.header}>Update email address</h1>
           <p className={styles.paragraph}>
@@ -106,30 +107,30 @@ export default function UpdateEmailForm({
           <p className={styles.paragraph}>
             I,{" "}
             <input
-              type="text"
-              placeholder="insert full name"
+              type='text'
+              placeholder='insert full name'
               value={userDetails.name}
               required
             />{" "}
             with account number{" "}
             <input
-              type="text"
-              placeholder="insert account name"
+              type='text'
+              placeholder='insert account name'
               value={userDetails.accountNumber}
               required
             />{" "}
             would like to update my email address registered with the stated
             account from{" "}
             <input
-              type="text"
-              placeholder="insert old email address"
+              type='text'
+              placeholder='insert old email address'
               value={userDetails.email}
               required
             />{" "}
             to{" "}
             <input
-              type="text"
-              placeholder="insert new email address"
+              type='text'
+              placeholder='insert new email address'
               onChange={(e) => setNewEmailAddress(e.target.value)}
               value={NewEmailAddress}
               required
@@ -197,14 +198,14 @@ export default function UpdateEmailForm({
                 ) : (
                   <button className={styles.takePicture} onClick={webClick}>
                     <p>Take live picture</p>
-                    <img src={cameraX} alt="" />
+                    <img src={cameraX} alt='' />
                   </button>
                 )}
               </div>
             </div>
           </div>
           <div className={styles.flexButton}>
-            <button className={styles.previous}>Previous</button>
+            <PrevButton />
 
             {generatedNumber > 19 ? (
               <>
@@ -217,20 +218,17 @@ export default function UpdateEmailForm({
                       alignContent: "center",
                       width: "100%",
                       height: "100%",
-                    }}
-                  >
+                    }}>
                     <div
-                      className="spinner-border text-danger mb-4"
-                      role="status"
-                    >
-                      <span className="sr-only"></span>
+                      className='spinner-border text-danger mb-4'
+                      role='status'>
+                      <span className='sr-only'></span>
                     </div>
                   </div>
                 ) : (
                   <button
                     className={styles.submitActive}
-                    onClick={SubmitEmailForm}
-                  >
+                    onClick={SubmitEmailForm}>
                     Submit
                   </button>
                 )}

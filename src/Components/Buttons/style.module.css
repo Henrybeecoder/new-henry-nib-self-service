@@ -1,0 +1,13 @@
+.previous {
+  border: 1px solid #db353a;
+  border-radius: 8px;
+  background: transparent;
+  padding: 10px 60px;
+  color: #db353a;
+}
+
+@media screen and (max-width: 900px) {
+  .previous {
+    margin: 2px 0;
+  }
+}

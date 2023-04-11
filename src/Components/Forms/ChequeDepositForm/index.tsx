@@ -12,6 +12,7 @@ import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import axios from "axios";
 import UploadTemp from "./UploadTemp";
 import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack";
+import { PrevButton } from "../../Buttons";
 // import pdf from "../../../../src/assets/downloads/quotation.pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -120,7 +121,7 @@ export default function ChequeDepositForm({
               />
             </div>
             <div className={styles.flexButton}>
-              <button className={styles.previous}>Previous</button>
+              <PrevButton />
 
               <>
                 {validating ? (

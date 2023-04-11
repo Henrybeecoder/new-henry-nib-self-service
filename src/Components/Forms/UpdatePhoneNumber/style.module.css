@@ -1,99 +1,97 @@
-
 .paragraph {
-    color: #606062 !important;
-    line-height: 3.5 !important;
-    font-weight: 400 !important; 
+  color: #606062 !important;
+  line-height: 3.5 !important;
+  font-weight: 400 !important;
 }
 
 .container input {
-    width: 32%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-radius: 0px !important;
-    margin: 0 5px;
-    background: transparent;
+  width: 32%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0px !important;
+  margin: 0 5px;
+  background: transparent;
 }
 .customInput {
-    width: 20%;
+  width: 20%;
 }
 
 .header {
-    color: #000 !important;
-    font-size: 1rem !important;
-    text-align: center !important;
-    font-weight: 600 !important;
-    margin: 16px 0 !important;
+  color: #000 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  margin: 16px 0 !important;
 }
 
 .container {
-    width: 100%;
-    height: 100%;
-    padding: 2px 20px;
+  width: 100%;
+  height: 100%;
+  padding: 2px 20px;
 }
 
 .textHeader {
-    text-align: left;
+  text-align: left;
 }
 
 .headerX {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .holder {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
 }
-.sign, .picture {
-    width: 46%;
+.sign,
+.picture {
+  width: 46%;
 }
 
 .clearButton {
-    background: transparent;
-    border: 1px solid #606062;
-    color: #606062;
-    height: 30px;
-    border-radius: 4px;
-    padding: 0 20px;
+  background: transparent;
+  border: 1px solid #606062;
+  color: #606062;
+  height: 30px;
+  border-radius: 4px;
+  padding: 0 20px;
 }
 
 .page ul li {
-    list-style-type: disc !important;
-    font-size: 12px;
+  list-style-type: disc !important;
+  font-size: 12px;
 }
 
 .page ul {
-background: rgba(252, 247, 247, 0.6);
-border-radius: 8px;
-color: #606062;
-padding: 15px 0;
-
+  background: rgba(252, 247, 247, 0.6);
+  border-radius: 8px;
+  color: #606062;
+  padding: 15px 0;
 }
 
 .takePicture {
-    display: flex;
-    background: #181717;
-    border: 1px solid #606062;
-    border-radius: 8px;
-    color: #FCF7F7;
-    justify-content: center;
-    align-items: center;
-    /* padding: 2px 10px; */
-    width: 100%;
-    height: 40px;
+  display: flex;
+  background: #181717;
+  border: 1px solid #606062;
+  border-radius: 8px;
+  color: #fcf7f7;
+  justify-content: center;
+  align-items: center;
+  /* padding: 2px 10px; */
+  width: 100%;
+  height: 40px;
 }
 
 .textHeader p {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 .textHeaderPara {
-    font-size: 12px !important;
+  font-size: 12px !important;
 }
 
-.signatureCanvas{
-    
+.signatureCanvas {
   width: 100%;
   height: 150px;
   padding: 12px 20px;
@@ -103,103 +101,90 @@ padding: 15px 0;
   background-color: #f8f8f8;
   font-size: 16px;
   resize: none;
-
 }
 
 .takePicture img {
-    width: 7%;
-    margin: 0 30px;
+  width: 7%;
+  margin: 0 30px;
 }
 
 .takePicture p {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .flexButton {
-    width: 60%;
-    margin-top: 15px;
-    margin-left: 250px;
-    display: flex;
-}
-
-.flexButton .previous {
-    border: 1px solid #DB353A;
-    border-radius: 8px;
-    background: transparent;
-    padding: 10px 60px;
-    color: #DB353A;
+  width: 60%;
+  margin-top: 15px;
+  margin-left: 250px;
+  display: flex;
 }
 
 .flexButton .submit {
-  background: #F1DBDA;
+  background: #f1dbda;
   border-radius: 8px;
- color: #CB6C6F;
+  color: #cb6c6f;
   padding: 10px 60px;
   margin-left: 20px;
-  border: 1px solid #DB353A;
+  border: 1px solid #db353a;
   cursor: none !important;
 }
 .submitActive {
-  background: #DB353A;
+  background: #db353a;
   border-radius: 8px;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 10px 60px;
   margin-left: 20px;
-  border: 1px solid #DB353A;
+  border: 1px solid #db353a;
 }
 
 .validationResult {
-    background: #FFFFFF;
-    border: 1px solid #CAC2C3;
-    border-radius: 8px;
-    padding: 10px 5px;
-    text-align: center;
+  background: #ffffff;
+  border: 1px solid #cac2c3;
+  border-radius: 8px;
+  padding: 10px 5px;
+  text-align: center;
 }
 
 .takenResult span {
-    color: #66CC15;
+  color: #66cc15;
 }
 
 .matchScore {
-    margin: 0 !important;
-    color: #606062;
-    font-size: 0.9rem !important;
+  margin: 0 !important;
+  color: #606062;
+  font-size: 0.9rem !important;
 }
 
 .container input:focus {
-     width: 40%;
-    border-top: none !important ;
-    border-left: none !important;
-    border-right: none !important;
-    border-radius: 0px !important;
-    margin: 0 5px;
-    outline: none !important;
+  width: 40%;
+  border-top: none !important ;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0px !important;
+  margin: 0 5px;
+  outline: none !important;
 }
-
-
 
 @media screen and (max-width: 900px) {
-     .signatureCanvas  {
-        width: 100%;
-    }
-    .holder {
-        flex-direction: column;
-    }
-    .sign, .picture {
+  .signatureCanvas {
     width: 100%;
-}
-.flexButton {
-  width: 100%;
-  margin: 0;
-  flex-direction: column;
-}
-.flexButton .submit {
+  }
+  .holder {
+    flex-direction: column;
+  }
+  .sign,
+  .picture {
+    width: 100%;
+  }
+  .flexButton {
+    width: 100%;
+    margin: 0;
+    flex-direction: column;
+  }
+  .flexButton .submit {
     margin: 2px 0;
-}
-.submitActive {
+  }
+  .submitActive {
     margin: 2px 0;
-}
-.flexButton .previous {
-    margin: 2px 0;
-}
+  }
 }
