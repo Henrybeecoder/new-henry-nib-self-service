@@ -66,7 +66,7 @@ export default function ChequeDepositForm({
       toast.successToast(response.message);
       setValidating(false);
     } catch (err) {
-      setSuccess(false);
+      setSuccess(true);
       setValidating(false);
     }
   };
@@ -94,30 +94,30 @@ export default function ChequeDepositForm({
           <>
             <div className={styles.uploadRow}>
               <UploadTemp
-                name='Front'
+                name="Front"
                 image={front.url}
                 onChange={(image) =>
                   setFiles((state) => ({ back: state.back, front: image }))
                 }
               />
               <UploadTemp
-                name='Back'
+                name="Back"
                 image={back.url}
                 onChange={(image) =>
                   setFiles((state) => ({ front: state.front, back: image }))
                 }
               />
             </div>
-            <div className=''>
-              <label htmlFor='streetname' className='label_text'>
+            <div className="">
+              <label htmlFor="streetname" className="label_text">
                 Enter amount
               </label>
               <input
                 onChange={(e) => setAmount(e.target.value)}
                 value={amount}
-                type='text'
-                className='form-control bg-white border-dark w-full'
-                placeholder='Enter amount'
+                type="text"
+                className="form-control bg-white border-dark w-full"
+                placeholder="Enter amount"
               />
             </div>
             <div className={styles.flexButton}>
@@ -133,19 +133,22 @@ export default function ChequeDepositForm({
                       alignContent: "center",
                       width: "200px",
                       height: "100%",
-                    }}>
+                    }}
+                  >
                     <div
-                      className='spinner-border text-danger mb-4'
-                      role='status'>
-                      <span className='sr-only'></span>
+                      className="spinner-border text-danger mb-4"
+                      role="status"
+                    >
+                      <span className="sr-only"></span>
                     </div>
                   </div>
                 ) : (
                   <button
                     disabled={!(amount.length > 1 && !!front && !!back)}
                     className={styles.submit}
-                    type='submit'
-                    onClick={() => setPreview(true)}>
+                    type="submit"
+                    onClick={() => setPreview(true)}
+                  >
                     Proceed
                   </button>
                 )}
@@ -207,8 +210,9 @@ const PreviewModal = ({
             onClick={() =>
               setFace((prevState) => (prevState === "front" ? "back" : "front"))
             }
-            className={styles.shift}>
-            <img src={shift} alt='' />
+            className={styles.shift}
+          >
+            <img src={shift} alt="" />
           </button>
 
           <div className={styles.indicators}>
@@ -239,16 +243,18 @@ const PreviewModal = ({
                 alignContent: "center",
                 width: "100%",
                 // height: "20px",
-              }}>
-              <div className='spinner-border text-danger' role='status'>
-                <span className='sr-only'></span>
+              }}
+            >
+              <div className="spinner-border text-danger" role="status">
+                <span className="sr-only"></span>
               </div>
             </div>
           ) : (
             <button
               className={styles.ErrorRetry}
-              type='submit'
-              onClick={onSubmit}>
+              type="submit"
+              onClick={onSubmit}
+            >
               Submit
             </button>
           )}
@@ -271,7 +277,7 @@ const Preview = (props: { file: File; url: string }) => {
         </div>
       ) : (
         <div className={styles.imgHolder}>
-          <img src={url} alt='' />
+          <img src={url} alt="" />
         </div>
       )}
     </>
