@@ -6,37 +6,19 @@ import altLogo from "../../assets/images/alt-logo.svg";
 import group1 from "../../assets/images/Group_1.svg";
 import rightArrow from "../../assets/images/right_arrow.svg";
 import no2 from "../../assets/images/no2.svg";
-import no3 from "../../assets/images/no3.png";
-import BvnValidationDialog from "../../Components/BvnValidationDialog";
-import Otp from "../../Components/OtpDialog";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../../redux/accountOpening";
 import styles from "./style.module.css";
-import UpdateEmailForm from "../../Components/Forms/UpdateEmailForm";
 import { useNavigate } from "react-router-dom";
-import { WebcamCapture } from "../../Containers/TakePicture";
 import cameraX from "../../assets/images/cameraX.svg";
 import cancelX from "../../assets/images/cancelX.svg";
 import cancelCapture from "../../assets/images/cancelCapture.svg";
 import reverse from "../../assets/images/reverse.svg";
 import Done from "../../assets/images/Done.svg";
 import Delete from "../../assets/images/Delete.svg";
-import {
-  getLocalStorageItem,
-  setLocalStorageItem,
-} from "../../utils/localStorage";
-import AuthCode from "react-auth-code-input";
-import * as toast from "../../utils/makeToast";
 import { Toaster } from "react-hot-toast";
-import axios from "axios";
-import { baseUrl } from "../../utils/baseUrl";
-import Icon_L from "../../assets/images/Icon_L.svg";
 import "react-toastify/dist/ReactToastify.css";
 import UpdateExpiredForm from "../../Components/Forms/UpdateExpiredForm";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { encryptAes, deCryptedData } from "../../utils/encrypt";
+import BvnValidation from "../../Components/BvnValidation";
 
 const videoConstraints = {
   width: 220,
@@ -51,7 +33,6 @@ export default function UpdateExpiredId() {
   const [validated, setValidated] = useState(false);
   const webcamRef = React.useRef(null);
   const [bvnCompleted, setBvnCompleted] = useState(false);
-  const [referenceId, setreferenceId] = useState("");
 
   const validateImage = () => {
     setGeneratedNumber(0);
@@ -89,10 +70,6 @@ export default function UpdateExpiredId() {
     (state: any) => state.accountOpeningData
   );
 
-  const { accountType } = useSelector((state: any) => state.accountOpeningData);
-
-  const [currentStep, setCurrentStep] = useState("bvn-validation");
-
   const nagivateHome = () => {
     navigate("/");
   };
@@ -108,223 +85,11 @@ export default function UpdateExpiredId() {
     setWebCam(false);
   }
 
-  //for otp functions
-
-  const verifyOTP = () => {};
-
-  const [resultx, setResultx] = useState("");
-  const handleOnChange = (res: string) => {
-    setResultx(res);
-  };
-
-  const [validating, setValidating] = useState(false);
-
-  const [userDetails, setUserDetails] = useState(
-    getLocalStorageItem("userDetails")
-  );
-
-  const dispatch = useDispatch();
-  const handleVerifyOTP = () => {
-    setValidating(true);
-    let validateOTPPayload = {
-      otp: resultx,
-      referenceId: referenceId,
-    };
-    const newEncryptedPayload = {
-      value: encryptAes(validateOTPPayload),
-    };
-
-    axios
-      .post(`${baseUrl}Auth/Validate-Otp`, newEncryptedPayload)
-      .then((newResponse) => {
-        console.log(newResponse, "The otp response");
-        const response = deCryptedData(newResponse.data);
-        console.log(response);
-        let userInfo = getLocalStorageItem("userDetails") || {};
-        setLocalStorageItem(
-          "userDetails",
-          JSON.stringify({
-            ...userInfo,
-            accountNumber: response.data.accountNumber,
-            bvn: response.data.bvn,
-            customerNumber: response.data.customerNumber,
-            email: response.data.email,
-            mobile: response.data.mobile,
-            name: response.data.name,
-            referenceId: response.data.referenceId,
-          })
-        );
-        toast.successToast(response.data.message);
-
-        setValidating(true);
-        setBvnCompleted(true);
-        dispatch(setAccountOpeningStep(`account-reactivation`));
-      })
-      .catch((err) => {
-        console.log(err);
-        setValidating(false);
-        toast.errorToast("OTP has expired");
-      });
-  };
-
-  //For bvn Validation
-
-  const [inputs, setInputs] = useState({});
-
-  const [Bvnvalidating, setBvnValidating] = useState(false);
-
-  const handleChange = (event: any) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values: any) => ({ ...values, [name]: value }));
-  };
-
-  const handleValidateBVN = () => {
-    if (checkFormValidity()) {
-      setBvnValidating(true);
-      validateBVN();
-    } else {
-      // console.log('invalid form')
-    }
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      bvn: "",
-      accountNumber: "",
-    },
-    validationSchema: Yup.object({
-      bvn: Yup.string()
-        .required()
-        .matches(/^[0-9]+$/, "Please input a valid bvn")
-        .min(11, "Please input a valid bvn")
-        .max(11, "Please input a valid bvn"),
-      accountNumber: Yup.string()
-        .required("account number is a required field")
-        .matches(/^[0-9]+$/, "Please input a valid account Number")
-        .min(10, "Please input a valid account Number")
-        .max(10, "Please input a valid account Number"),
-    }),
-    onSubmit: () => {
-      validateBVN();
-    },
-  });
-
-  const validateBVN = () => {
-    setBvnValidating(true);
-    let validateBVNPayload = {
-      accountNumber: `${formik.values.accountNumber}`,
-      bvn: `${formik.values.bvn}`,
-      accountServiceId: 3,
-    };
-    let userDetails = getLocalStorageItem("userDetails") || {};
-    setLocalStorageItem(
-      "userDetails",
-      JSON.stringify({ ...userDetails, bvn: formik.values.bvn })
-    );
-    // console.log(validateBVNPayload)
-
-    const newEncryptedPayload = {
-      value: encryptAes(validateBVNPayload),
-    };
-
-    axios
-      .post(`${baseUrl}Auth/Validate-AccountNumber-BVN`, newEncryptedPayload, {
-        headers: { "Content-type": "application/json; charset=utf-8" },
-      })
-      .then((newResponse) => {
-        console.log(newResponse);
-        const response = deCryptedData(newResponse.data);
-
-        if (newResponse && response.status) {
-          setreferenceId(response.data.referenceId);
-          let userInfo = getLocalStorageItem("userDetails") || {};
-          setLocalStorageItem(
-            "userDetails",
-            JSON.stringify({
-              ...userInfo,
-              otp: response.data.message,
-              referenceId: response.data.referenceId,
-            })
-          );
-          toast.successToast(response.message);
-
-          dispatch(setAccountOpeningStep("otp"));
-          setBvnValidating(false);
-        } else if (!newResponse) {
-          setBvnError(true);
-          //console.log(err);
-          setBvnValidating(false);
-        }
-      })
-      .catch((err) => {
-        setBvnError(true);
-        console.log(err);
-        setBvnValidating(false);
-      });
-  };
-
-  const checkFormValidity = () => {
-    if (
-      inputs.bvn.length < 11 ||
-      inputs.bvn.length > 11 ||
-      inputs.accountNumber.length > 10 ||
-      inputs.accountNumber.length < 10
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  //For the bvn error
-  const [bvnError, setBvnError] = useState(false);
-  const [attempt, setAttempt] = useState(3);
-
-  const closeBvnError = () => {
-    setBvnError(false);
-  };
-
-  const retryError = () => {
-    setBvnError(false);
-
-    setAttempt(attempt - 1);
-  };
-
   // TODO CONSUME RESEND OTP ENDPOINT
-
-  const handleResendOTP = (event) => {
-    event.preventDefault();
-    let validateResendOtp = {
-      accountServiceId: 1,
-      referenceId: referenceId,
-    };
-    axios
-      .post(`${baseUrl}Auth/ResendOTP`, validateResendOtp)
-      .then((response) => {
-        if (response.status === 200) {
-          let userInfo = getLocalStorageItem("userDetails") || {};
-          setLocalStorageItem(
-            "userDetails",
-            JSON.stringify({
-              ...userInfo,
-              otp: response.data.message,
-              referenceId: response.data.data.referenceId,
-            })
-          );
-          toast.successToast(response.data.message);
-          dispatch(setAccountOpeningStep("otp"));
-        }
-      })
-      .catch((err) => {
-        toast.errorToast("please try again later");
-        console.log(err);
-      });
-  };
 
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position='top-center' reverseOrder={false} />
       {bvnError && (
         <div className={styles.ErrorBg}>
           <div className={styles.ErrorContain}>
@@ -347,49 +112,49 @@ export default function UpdateExpiredId() {
           </div>
         </div>
       )}
-      <div className="container-fluid row">
-        <div className="col-md-5 d-none d-md-inline left_col">
-          <div className="logo pl-4 pt-5">
+      <div className='container-fluid row'>
+        <div className='col-md-5 d-none d-md-inline left_col'>
+          <div className='logo pl-4 pt-5'>
             <img
               src={altLogo}
-              alt="alternative finance logo"
+              alt='alternative finance logo'
               onClick={nagivateHome}
             />
           </div>
         </div>
 
-        <div className="col-md-7 right_col">
-          <div className="d-flex justify-content-end">
-            <div className="d-flex flex-column pt-5">
-              <div className="d-flex justify-content-end">
+        <div className='col-md-7 right_col'>
+          <div className='d-flex justify-content-end'>
+            <div className='d-flex flex-column pt-5'>
+              <div className='d-flex justify-content-end'>
                 {/* <h1 className="float-right pr-3 mb-4">Swift Savings</h1> */}
-                <h1 className="pr-3 mb-4 text-capitalize">Update Expired ID</h1>
+                <h1 className='pr-3 mb-4 text-capitalize'>Update Expired ID</h1>
               </div>
-              <nav className="mb-4">
-                <ol className="breadcrumb bg-white float-right">
-                  <li className="breadcrumb-item">
+              <nav className='mb-4'>
+                <ol className='breadcrumb bg-white float-right'>
+                  <li className='breadcrumb-item'>
                     {" "}
-                    <a href="#">
+                    <a href='#'>
                       {bvnCompleted ? (
                         <span>
-                          <img className={styles.done} src={Done} alt="" />
+                          <img className={styles.done} src={Done} alt='' />
                         </span>
                       ) : (
                         <span>
-                          <img className="pr-1" src={group1} alt="" />
+                          <img className='pr-1' src={group1} alt='' />
                         </span>
                       )}
                       Bvn Validation &nbsp;
                       <span>
-                        <img src={rightArrow} alt="" />
+                        <img src={rightArrow} alt='' />
                       </span>
                     </a>
                   </li>
-                  <li className="breadcrumb-item">
+                  <li className='breadcrumb-item'>
                     {" "}
-                    <a href="#">
+                    <a href='#'>
                       <span>
-                        <img className="pr-1" src={no2} alt="" />
+                        <img className='pr-1' src={no2} alt='' />
                       </span>{" "}
                       Update expired ID
                     </a>
@@ -398,226 +163,12 @@ export default function UpdateExpiredId() {
               </nav>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-11 card validation-card pb-4">
-              {accountOpeningStep === "bvn-validation" ? (
-                <div>
-                  {/* <div className="card-form px-4"> */}
-                  <div className={`card-form`}>
-                    <div className="card-body">
-                      <h4 className="card-title text-center pl-5 mt-4">
-                        {accountType === "minor savings"
-                          ? "Parent/Guardian's BVN"
-                          : ""}{" "}
-                        BVN Validation
-                      </h4>
-                      <div className="bvn_val mb-4">
-                        <img src={Icon_L} alt="" />
-                        <small className="text-danger ml-4">
-                          Kindly ensure that your BVN information is up to date
-                        </small>
-                      </div>
-                      <div className="form-group">
-                        <div className="d-flex justify-content-between pb-1 fillup">
-                          <label htmlFor="name" className="fila">
-                            Enter BVN
-                          </label>
-                          <i
-                            className="bx bxs-info-circle"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="The Bank Verification Number (BVN) is an 11-digit number.Dial *565*0# to check your BVN"
-                          ></i>
-                        </div>
-                        <input
-                          name="bvn"
-                          value={formik.values.bvn}
-                          onChange={formik.handleChange}
-                          maxLength={11}
-                          className="form-control bvn_input border-dark"
-                          style={{ textAlign: "left" }}
-                          type="text"
-                          id="bvn"
-                          placeholder="Enter your BVN"
-                        />
-                        {formik.touched.bvn && formik.errors.bvn ? (
-                          <small className="text-danger">
-                            {formik.errors.bvn}
-                          </small>
-                        ) : null}
-                      </div>
-
-                      <div className="form-group">
-                        <div className="d-flex justify-content-between pb-1 fillup">
-                          <label htmlFor="name" className="fila">
-                            Account number
-                          </label>
-                        </div>
-                        <input
-                          name="accountNumber"
-                          className="form-control bvn_input text-muted border-dark"
-                          style={{ textAlign: "left" }}
-                          type="text"
-                          id="accountNumber"
-                          placeholder="Enter your account number"
-                          onChange={formik.handleChange}
-                          value={formik.values.accountNumber}
-                        />
-                        {formik.touched.accountNumber &&
-                        formik.errors.accountNumber ? (
-                          <small className="text-danger">
-                            {formik.errors.accountNumber}
-                          </small>
-                        ) : null}
-                      </div>
-
-                      <div className="d-flex justify-content-end mt-4">
-                        {Bvnvalidating ? (
-                          <div
-                            className="spinner-border text-danger"
-                            role="status"
-                          >
-                            <span className="sr-only"></span>
-                          </div>
-                        ) : (
-                          <button
-                            className="btn btn-dange float-right btn-filled-red"
-                            onClick={formik.handleSubmit}
-                          >
-                            Validate
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
-
-              {accountOpeningStep === "otp" ? (
-                // <div>
-                //   <div className="card-form pl-5 pr-5 ">
-                //     <div className="card-body text-center">
-                //       <h4 className="card-title text-center pt-4 mt-5">
-                //         Enter OTP
-                //       </h4>
-                //       <p className="text-muted">
-                //         An OTP has been sent to the mobile number captured in{" "}
-                //         <br />
-                //         your BVN. Kindly enter the OTP to proceed.
-                //       </p>
-
-                //       <form className="mt-4 mb-4 flex justify-between">
-                //         <input
-                //           className="otp text-center"
-                //           style={{ marginRight: "10px" }}
-                //           type="text"
-                //           onKeyUp={() => tabChange(1)}
-                //           placeholder="*"
-                //         />
-                //         <input
-                //           className="otp text-center"
-                //           style={{ marginRight: "10px" }}
-                //           type="number"
-                //           onKeyUp={() => tabChange(2)}
-                //           placeholder="*"
-                //         />
-                //         <input
-                //           className="otp text-center"
-                //           style={{ marginRight: "10px" }}
-                //           type="number"
-                //           onKeyUp={() => tabChange(3)}
-                //           placeholder="*"
-                //         />
-                //         <input
-                //           className="otp text-center"
-                //           style={{ marginRight: "10px" }}
-                //           type="number"
-                //           onKeyUp={() => tabChange(4)}
-                //           placeholder="*"
-                //         />
-                //       </form>
-
-                //       <button
-                //         className=" btn_filled mb-4"
-                //         id="demo"
-                //         onClick={verifyOTP}
-                //       >
-                //         Proceed
-                //       </button>
-
-                //       <p>
-                //         <small>
-                //           Did not get the OTP?{" "}
-                //           <span className="font-weight-bold">
-                //             <u className="cursor-pointer">Resend OTP</u>
-                //           </span>
-                //         </small>
-                //       </p>
-                //     </div>
-                //   </div>
-                // </div>
-                <div>
-                  <Toaster position="top-center" reverseOrder={false} />
-                  <div className=" card-form pl-5 pr-5 ">
-                    <div className="card-body text-center">
-                      <h4 className="card-title text-center pt-4 mt-5">
-                        Enter OTP
-                      </h4>
-                      <p className="text-muted">
-                        An OTP has been sent to the mobile number captured in{" "}
-                        <br />
-                        your BVN. Kindly enter the OTP to proceed.
-                      </p>
-
-                      <div className={styles.otpHolder}>
-                        <AuthCode
-                          inputClassName={styles.otp}
-                          placeholder="*"
-                          length={4}
-                          allowedCharacters="numeric"
-                          onChange={handleOnChange}
-                        />
-                      </div>
-
-                      {validating ? (
-                        <div
-                          className="spinner-border text-danger mb-4"
-                          role="status"
-                        >
-                          <span className="sr-only"></span>
-                        </div>
-                      ) : (
-                        <button
-                          disabled={resultx.length != 4}
-                          type="submit"
-                          className="btn btn-danger btn-filled-red mb-4 proceed-btn"
-                          onClick={handleVerifyOTP}
-                        >
-                          Proceed
-                        </button>
-                      )}
-
-                      <p>
-                        <small>
-                          Did not get the OTP?{" "}
-                          <span className="font-weight-bold">
-                            <u
-                              style={{ cursor: "pointer" }}
-                              onClick={handleResendOTP}
-                            >
-                              Resend OTP
-                            </u>
-                          </span>
-                        </small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
+          <div className='row'>
+            <div className='col-md-11 card validation-card pb-4'>
+              <BvnValidation
+                setComplete={setBvnCompleted}
+                setIsLoading={setIsLoading}
+              />
               {accountOpeningStep === "account-reactivation" ? (
                 <UpdateExpiredForm />
               ) : (
@@ -636,7 +187,7 @@ export default function UpdateExpiredId() {
               <h3>Take Live Picture</h3>
               <img
                 src={cancelX}
-                alt=""
+                alt=''
                 className={styles.cancel}
                 onClick={closeWebCam}
               />
@@ -649,7 +200,7 @@ export default function UpdateExpiredId() {
                     audio={false}
                     height={matches ? 450 : 250}
                     ref={webcamRef}
-                    screenshotFormat="image/jpeg"
+                    screenshotFormat='image/jpeg'
                     width={matches ? 450 : 250}
                     videoConstraints={videoConstraints}
                   />
@@ -673,9 +224,9 @@ export default function UpdateExpiredId() {
                       <div className={styles.resultFlex}>
                         <div className={styles.resultText}>
                           {generatedNumber > 19 ? (
-                            <img src={Done} alt="" />
+                            <img src={Done} alt='' />
                           ) : (
-                            <img src={Delete} alt="" />
+                            <img src={Delete} alt='' />
                           )}
 
                           <div className={styles.iconFlex}>
@@ -687,8 +238,7 @@ export default function UpdateExpiredId() {
                                   generatedNumber > 19
                                     ? `${styles.success}`
                                     : `${styles.failed}`
-                                }`}
-                              >
+                                }`}>
                                 {generatedNumber}%
                               </span>
                             </p>
@@ -702,8 +252,7 @@ export default function UpdateExpiredId() {
                         <div className={styles.flexButton}>
                           <button
                             className={styles.retry}
-                            onClick={closeWebCam}
-                          >
+                            onClick={closeWebCam}>
                             Cancel
                           </button>
                           <button className={styles.validate} onClick={retry}>
@@ -719,14 +268,12 @@ export default function UpdateExpiredId() {
                         onClick={(e) => {
                           e.preventDefault();
                           setImage("");
-                        }}
-                      >
+                        }}>
                         Retry
                       </button>
                       <button
                         className={styles.validate}
-                        onClick={validateImage}
-                      >
+                        onClick={validateImage}>
                         Validate
                       </button>
                     </div>
@@ -745,24 +292,23 @@ export default function UpdateExpiredId() {
 
                 <div className={styles.captureButtons}>
                   <button className={styles.cancelCapture}>
-                    <img src={cancelCapture} alt="" />
+                    <img src={cancelCapture} alt='' />
                   </button>
                   <button
                     className={styles.getCapture}
                     onClick={(e) => {
                       e.preventDefault();
                       capture();
-                    }}
-                  >
-                    <img src={cameraX} alt="" />
+                    }}>
+                    <img src={cameraX} alt='' />
                   </button>
                   <button className={styles.reverseCapture}>
-                    <img src={reverse} alt="" />
+                    <img src={reverse} alt='' />
                   </button>
                 </div>
               )}
             </div>
-            <div className="ImageCam"></div>
+            <div className='ImageCam'></div>
           </div>
         </div>
       )}
