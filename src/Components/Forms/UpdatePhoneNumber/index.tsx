@@ -16,7 +16,7 @@ import SignaturePad from "react-signature-canvas";
 import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import { useUserDetails } from "../../../utils/Hooks";
 import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../../../redux/accountOpening";
+import { setStep } from "../../../redux/global";
 import { PrevButton } from "../../Buttons";
 
 export default function UpdatePhoneNumber({

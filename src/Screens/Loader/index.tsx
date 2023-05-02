@@ -3,9 +3,9 @@ import styles from "./style.module.css";
 
 const Loader = () => {
   return (
-    <div>
+    <>
       <div className={styles.loading} />
-    </div>
+    </>
   );
 };
 

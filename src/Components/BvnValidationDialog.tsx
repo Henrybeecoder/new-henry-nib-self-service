@@ -1,20 +1,20 @@
 //@ts-nocheck
 //@ts-ignore
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import Icon_L from '../assets/images/Icon_L.svg';
-import { setAccountOpeningStep } from '../redux/accountOpening';
-import { AiFillInfoCircle } from 'react-icons/ai';
-import ModalBranch from './Modalbranch';
-import axios from 'axios';
-import { baseUrl } from '../utils/baseUrl';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import Icon_L from "../assets/images/Icon_L.svg";
+import { setStep } from "../redux/global";
+import { AiFillInfoCircle } from "react-icons/ai";
+import ModalBranch from "./Modalbranch";
+import axios from "axios";
+import { baseUrl } from "../utils/baseUrl";
 import {
   setLocalStorageItem,
   getLocalStorageItem,
-} from '../utils/localStorage';
-import * as toast from '../utils/makeToast';
-import { Toaster } from 'react-hot-toast';
-import 'react-toastify/dist/ReactToastify.css';
+} from "../utils/localStorage";
+import * as toast from "../utils/makeToast";
+import { Toaster } from "react-hot-toast";
+import "react-toastify/dist/ReactToastify.css";
 //import styles from "./style.module.css";
 
 function BvnValidationDialog(props: any) {
@@ -29,7 +29,7 @@ function BvnValidationDialog(props: any) {
   };
 
   const [accountType, setAccountType] = useState(
-    localStorage.getItem('altFinanceAccountType')
+    localStorage.getItem("altFinanceAccountType")
   );
 
   console.log(inputs.bvn);
@@ -53,21 +53,21 @@ function BvnValidationDialog(props: any) {
       bvn: `${inputs.bvn}`,
       accountServiceId: 1,
     };
-    let userDetails = getLocalStorageItem('userDetails') || {};
+    let userDetails = getLocalStorageItem("userDetails") || {};
     setLocalStorageItem(
-      'userDetails',
+      "userDetails",
       JSON.stringify({ ...userDetails, bvn: inputs.bvn })
     );
-    console.log('BVN PAGE Deets:', userDetails);
+    console.log("BVN PAGE Deets:", userDetails);
     // console.log(validateBVNPayload)
     axios
       .post(`${baseUrl}Auth/Validate-AccountNumber-BVN`, validateBVNPayload)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          let userInfo = getLocalStorageItem('userDetails') || {};
+          let userInfo = getLocalStorageItem("userDetails") || {};
           setLocalStorageItem(
-            'userDetails',
+            "userDetails",
             JSON.stringify({
               ...userInfo,
               otp: response.data.message,
@@ -78,7 +78,7 @@ function BvnValidationDialog(props: any) {
 
           console.log(response.data.message);
 
-          dispatch(setAccountOpeningStep('otp'));
+          dispatch(setStep("otp"));
         }
         // if (response.data.isSuccess) {
         //   // toast.successToast(response.data.otp)
@@ -99,14 +99,14 @@ function BvnValidationDialog(props: any) {
         //     JSON.stringify({ ...response.data })
         //   );
 
-        //   dispatch(setAccountOpeningStep("otp"));
+        //   dispatch(setStep("otp"));
         // } else {
         //   toast.errorToast(response.data.responseMessage);
         // }
         setValidating(false);
       })
       .catch((err) => {
-        toast.errorToast('something went wrong');
+        toast.errorToast("something went wrong");
         console.log(err);
         setValidating(false);
       });
@@ -132,7 +132,7 @@ function BvnValidationDialog(props: any) {
       <div className={`card-form`}>
         <div className='card-body'>
           <h4 className='card-title text-center pl-5 mt-4'>
-            {accountType === 'minor savings' ? "Parent/Guardian's BVN" : ''} BVN
+            {accountType === "minor savings" ? "Parent/Guardian's BVN" : ""} BVN
             Validation
           </h4>
           <div className='bvn_val mb-4'>
@@ -150,8 +150,7 @@ function BvnValidationDialog(props: any) {
                 className='bx bxs-info-circle'
                 data-toggle='tooltip'
                 data-placement='bottom'
-                title='The Bank Verification Number (BVN) is an 11-digit number.Dial *565*0# to check your BVN'
-              ></i>
+                title='The Bank Verification Number (BVN) is an 11-digit number.Dial *565*0# to check your BVN'></i>
             </div>
             <input
               name='bvn'
@@ -159,7 +158,7 @@ function BvnValidationDialog(props: any) {
               onChange={handleChange}
               maxLength={11}
               className='form-control bvn_input border-dark'
-              style={{ textAlign: 'left' }}
+              style={{ textAlign: "left" }}
               type='text'
               id='bvn'
               placeholder='Enter your BVN'
@@ -175,7 +174,7 @@ function BvnValidationDialog(props: any) {
             <input
               name='accountNumber'
               className='form-control bvn_input text-muted border-dark'
-              style={{ textAlign: 'left' }}
+              style={{ textAlign: "left" }}
               type='text'
               onChange={handleChange}
               id='accountNumber'
@@ -192,8 +191,7 @@ function BvnValidationDialog(props: any) {
             ) : (
               <button
                 className='btn btn-dange float-right btn-filled-red'
-                onClick={handleValidateBVN}
-              >
+                onClick={handleValidateBVN}>
                 Validate
               </button>
             )}

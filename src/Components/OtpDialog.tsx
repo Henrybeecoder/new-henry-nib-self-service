@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setAccountOpeningStep } from '../redux/accountOpening';
-import './OtpDialog.css';
-import AuthCode from 'react-auth-code-input';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setStep } from "../redux/global";
+import "./OtpDialog.css";
+import AuthCode from "react-auth-code-input";
 import {
   getLocalStorageItem,
   setLocalStorageItem,
-} from '../utils/localStorage';
-import axios from 'axios';
-import { baseUrl } from '../utils/baseUrl';
-import * as toast from '../utils/makeToast';
-import { Toaster } from 'react-hot-toast';
+} from "../utils/localStorage";
+import axios from "axios";
+import { baseUrl } from "../utils/baseUrl";
+import * as toast from "../utils/makeToast";
+import { Toaster } from "react-hot-toast";
 
 function OtpDialog(props: any) {
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState("");
 
   const handleOnChange = (res: string) => {
     setResult(res);
@@ -24,7 +24,7 @@ function OtpDialog(props: any) {
   const [resetOTP, setResetOTP] = useState(false);
 
   const [userDetails, setUserDetails] = useState(
-    getLocalStorageItem('userDetails')
+    getLocalStorageItem("userDetails")
   );
 
   console.log(userDetails.otp);
@@ -48,16 +48,16 @@ function OtpDialog(props: any) {
       .post(`${baseUrl}Auth/Validate-Otp`, validateOTPPayload) //Authentication/validateOTP
       .then((response) => {
         if (response.data.UserDetails && response.data.accessToken) {
-          let userInfo = getLocalStorageItem('userDetails') || {};
+          let userInfo = getLocalStorageItem("userDetails") || {};
 
-          setLocalStorageItem('accessToken', response.data.accessToken);
+          setLocalStorageItem("accessToken", response.data.accessToken);
           setLocalStorageItem(
-            'userDetails',
+            "userDetails",
             JSON.stringify({ ...userInfo, ...response.data.UserDetails })
           );
 
           toast.successToast(response.data.message);
-          dispatch(setAccountOpeningStep('update-detail'));
+          dispatch(setStep("update-detail"));
         } else {
           toast.errorToast(response.data.message);
         }
@@ -66,8 +66,8 @@ function OtpDialog(props: any) {
       .catch((err) => {
         // console.log(err)
         setValidating(false);
-        toast.errorToast('something went wrong');
-        // dispatch(setAccountOpeningStep('update-detail'))
+        toast.errorToast("something went wrong");
+        // dispatch(setStep('update-detail'))
       });
   };
 
@@ -83,9 +83,9 @@ function OtpDialog(props: any) {
       .post(`${baseUrl}Auth/ResendOTP`, validateResendOtp)
       .then((response) => {
         if (response.status === 200) {
-          let userInfo = getLocalStorageItem('userDetails') || {};
+          let userInfo = getLocalStorageItem("userDetails") || {};
           setLocalStorageItem(
-            'userDetails',
+            "userDetails",
             JSON.stringify({
               ...userInfo,
               otp: response.data.message,
@@ -93,11 +93,11 @@ function OtpDialog(props: any) {
             })
           );
           toast.successToast(response.data.message);
-          dispatch(setAccountOpeningStep('otp'));
+          dispatch(setStep("otp"));
         }
       })
       .catch((err) => {
-        toast.errorToast('please try again later');
+        toast.errorToast("please try again later");
         console.log(err);
       });
   };
@@ -132,8 +132,7 @@ function OtpDialog(props: any) {
               disabled={result.length != 4}
               type='submit'
               className='btn btn-danger btn-filled-red mb-4 proceed-btn'
-              onClick={handleVerifyOTP}
-            >
+              onClick={handleVerifyOTP}>
               Proceed
             </button>
           )}
@@ -142,7 +141,7 @@ function OtpDialog(props: any) {
 
           <p>
             <small>
-              Did not get the OTP?{' '}
+              Did not get the OTP?{" "}
               <span className='font-weight-bold'>
                 <u className='cursor-pointer' onClick={handleResendOTP}>
                   Resend OTP

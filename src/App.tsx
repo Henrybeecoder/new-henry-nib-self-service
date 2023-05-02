@@ -18,29 +18,29 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Slider />} />
+          <Route index element={<Slider />} />
           <Route
-            path="/account-reactivation"
+            path='/account-reactivation'
             element={<AccountReactivation />}
           />
-          <Route path="/update-email" element={<UpdateEmail />} />
+          <Route path='/update-email' element={<UpdateEmail />} />
           <Route
-            path="/update-phone-number"
+            path='/update-phone-number'
             element={<UpdatePhoneNumberPage />}
           />
-          <Route path="/update-expired-id" element={<UpdateExpiredId />} />
+          <Route path='/update-expired-id' element={<UpdateExpiredId />} />
           <Route
-            path="/mandate-and-signature"
+            path='/mandate-and-signature'
             element={<MandateandSignature />}
           />
-          <Route path="/residential-address" element={<ResidentialAdress />} />
-          <Route path="/cheque-request" element={<ChequeRequest />} />
-          <Route path="/cheque-deposit" element={<ChequeDeposit />} />
+          <Route path='/residential-address' element={<ResidentialAdress />} />
+          <Route path='/cheque-request' element={<ChequeRequest />} />
+          <Route path='/cheque-deposit' element={<ChequeDeposit />} />
           <Route
-            path="/branch-domiciliation"
+            path='/branch-domiciliation'
             element={<BranchDomiciliation />}
           />
-          <Route path="/update-account-name" element={<UpdateAccountName />} />
+          <Route path='/update-account-name' element={<UpdateAccountName />} />
         </Routes>
       </Router>
       {/* <BvnValidationDialog /> */}

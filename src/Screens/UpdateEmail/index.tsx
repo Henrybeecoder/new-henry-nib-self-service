@@ -11,7 +11,7 @@ import BvnValidationDialog from "../../Components/BvnValidationDialog";
 import Otp from "../../Components/OtpDialog";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../../redux/accountOpening";
+import { setStep } from "../../redux/global";
 import styles from "./style.module.css";
 import UpdateEmailForm from "../../Components/Forms/UpdateEmailForm";
 import { useNavigate } from "react-router-dom";
@@ -73,9 +73,7 @@ export default function UpdateEmail() {
   const [webcam, setWebCam] = useState(false);
 
   const navigate = useNavigate();
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const nagivateHome = () => {
     navigate("/");
@@ -160,7 +158,7 @@ export default function UpdateEmail() {
                   setComplete={setBvnCompleted}
                   setIsLoading={setIsLoading}
                 />
-                {accountOpeningStep === "account-reactivation" ? (
+                {globalState === "account-reactivation" ? (
                   <UpdateEmailForm
                     webClick={webClick}
                     image={image}

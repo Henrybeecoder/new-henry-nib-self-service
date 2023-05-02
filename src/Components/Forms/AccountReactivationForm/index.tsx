@@ -26,7 +26,7 @@ import { encryptAes, deCryptedData } from "../../../utils/encrypt";
 import { getMonth, getYear } from "date-fns";
 import range from "lodash/range";
 import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../../../redux/accountOpening";
+import { setStep } from "../../../redux/global";
 import { PrevButton } from "../../Buttons";
 
 export default function AccountReactivationForm({

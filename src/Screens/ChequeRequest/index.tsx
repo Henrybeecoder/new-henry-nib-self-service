@@ -70,9 +70,7 @@ export default function ChequeRequest() {
   const [webcam, setWebCam] = useState(false);
 
   const navigate = useNavigate();
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const nagivateHome = () => {
     navigate("/");
@@ -153,7 +151,7 @@ export default function ChequeRequest() {
                   setComplete={setBvnCompleted}
                   setIsLoading={setIsLoading}
                 />
-                {accountOpeningStep === "account-reactivation" ? (
+                {globalState === "account-reactivation" ? (
                   <ChequeRequestForm />
                 ) : (
                   ""

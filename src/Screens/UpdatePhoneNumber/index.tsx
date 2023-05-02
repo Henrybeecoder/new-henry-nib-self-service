@@ -70,9 +70,7 @@ export default function UpdatePhoneNumberPage() {
 
   const [webcam, setWebCam] = useState(false);
 
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const nagivateHome = () => {
     navigate("/");
@@ -152,7 +150,7 @@ export default function UpdatePhoneNumberPage() {
                 setComplete={setBvnCompleted}
                 setIsLoading={setIsLoading}
               />
-              {accountOpeningStep === "account-reactivation" ? (
+              {globalState === "account-reactivation" ? (
                 <UpdatePhoneNumber
                   webClick={webClick}
                   image={image}

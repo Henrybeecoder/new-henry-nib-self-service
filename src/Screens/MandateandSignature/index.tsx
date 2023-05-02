@@ -68,9 +68,7 @@ export default function MandateandSignature() {
   const [webcam, setWebCam] = useState(false);
 
   const navigate = useNavigate();
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const nagivateHome = () => {
     navigate("/");
@@ -156,7 +154,7 @@ export default function MandateandSignature() {
                   setComplete={setBvnCompleted}
                   setIsLoading={setIsLoading}
                 />
-                {accountOpeningStep === "mandate-and-sign" ? (
+                {globalState === "mandate-and-sign" ? (
                   <UpdateMandatoryForm
                     webClick={webClick}
                     image={image}

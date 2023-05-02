@@ -9,16 +9,16 @@ import {
 import { deCryptedData, encryptAes } from "../../utils/encrypt";
 import axios from "axios";
 import { baseUrl } from "../../utils/baseUrl";
-import { Dispatch, useState } from "react";
+import { Dispatch, ReactNode, useState } from "react";
 import * as toast from "../../utils/makeToast";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccountOpeningStep } from "../../redux/accountOpening";
+import { setStep } from "../../redux/global";
 import styles from "./style.module.css";
 import AuthCode from "react-auth-code-input";
 
 interface Props {
-  setComplete: (state: boolean) => void;
   setIsLoading: Dispatch<React.SetStateAction<boolean>>;
+  children?: ReactNode;
 }
 
 const initialValues = {
@@ -41,7 +41,7 @@ const VS = Yup.object({
     .max(10, "Please input a valid account Number"),
 });
 
-const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
+const BvnValidation = ({ setIsLoading, children }: Props) => {
   const [loading, setLoading] = useState({ otp: false, bvn: false });
   const [error, setError] = useState(false);
   const [referenceId, setreferenceId] = useState("");
@@ -52,8 +52,8 @@ const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
   const dispatch = useDispatch();
 
   const { step, accountType } = useSelector((state: any) => ({
-    step: state.accountOpeningData.accountOpeningStep,
-    accountType: state.accountOpeningData.accountType,
+    step: state.globalState.step,
+    accountType: state.globalState.accountType,
   }));
 
   const validateBVN = async (values: BvnValidationForm) => {
@@ -95,7 +95,7 @@ const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
         );
         toast.successToast(response.message);
 
-        dispatch(setAccountOpeningStep("otp"));
+        dispatch(setStep("otp"));
         setLoading((state) => ({ otp: state.otp, bvn: false }));
       } else if (!data) {
         setError(true);
@@ -142,8 +142,7 @@ const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
         toast.successToast(response.data.message);
 
         setLoading((state) => ({ bvn: state.bvn, otp: false }));
-        setComplete(true);
-        dispatch(setAccountOpeningStep(`account-reactivation`));
+        dispatch(setStep(`validated`));
       })
       .catch((err) => {
         console.log(err);
@@ -169,7 +168,7 @@ const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
         newEncryptedPayload
       );
 
-      console.log(data);
+      // console.log(data);
       const response = deCryptedData(data);
       if (response.status) {
         let userInfo = getLocalStorageItem("userDetails") || {};
@@ -182,7 +181,7 @@ const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
           })
         );
         toast.successToast(response.message);
-        dispatch(setAccountOpeningStep("otp"));
+        dispatch(setStep("otp"));
         setIsLoading(false);
         setLoading((state) => ({ bvn: state.bvn, otp: false }));
       }
@@ -203,189 +202,207 @@ const BvnValidation = ({ setComplete, setIsLoading }: Props) => {
     setAttempt(attempt - 1);
   };
 
+  console.log(step);
+
   return (
     <>
-      {error && (
-        <div className={styles.ErrorBg}>
-          <div className={styles.ErrorContain}>
-            <h1>BVN Validation unsuccessful</h1>
-            <p>
-              Kindly visit the nearest branch if you are yet to be profiled on
-              the BVN platform
-            </p>
-            <div className={styles.ErrorButtonFlex}>
-              <button className={styles.ErrorCancel} onClick={closeBvnError}>
-                Cancel
-              </button>
-              <button className={styles.ErrorRetry} onClick={retryError}>
-                Retry
-              </button>
-            </div>
-            <p className={styles.ErrorMessage}>
-              You have <b>{attempt} attempts</b> remaining
-            </p>
-          </div>
-        </div>
-      )}
-
-      {step === "bvn-validation" ? (
-        <Formik
-          initialValues={initialValues}
-          onSubmit={validateBVN}
-          validationSchema={VS}>
-          {({ dirty, getFieldProps, touched, errors, isValid }) => (
-            <Form>
-              <Toaster position='top-center' reverseOrder={false} />
-              {/* <div className="card-form px-4"> */}
-              <div className={`card-form`}>
-                <div className='card-body'>
-                  <h4 className='card-title text-center pl-5 mt-4'>
-                    {accountType === "minor savings"
-                      ? "Parent/Guardian's BVN"
-                      : ""}{" "}
-                    BVN Validation
-                  </h4>
-                  <div className='bvn_val mb-4'>
-                    <img src={Icon_L} alt='' />
-                    <small className='text-danger ml-4'>
-                      Kindly ensure that your BVN information is up to date
-                    </small>
-                  </div>
-                  <div className='form-group'>
-                    <div className='d-flex justify-content-between pb-1 fillup'>
-                      <label htmlFor='name' className='fila'>
-                        Enter BVN
-                      </label>
-                      <i
-                        className='bx bxs-info-circle'
-                        data-toggle='tooltip'
-                        data-placement='bottom'
-                        title='The Bank Verification Number (BVN) is an 11-digit number.Dial *565*0# to check your BVN'></i>
-                    </div>
-                    <input
-                      name='bvn'
-                      maxLength={11}
-                      className='form-control bvn_input border-dark'
-                      style={{ textAlign: "left" }}
-                      type='text'
-                      {...getFieldProps("bvn")}
-                      placeholder='Enter your BVN'
-                    />
-                    {touched.bvn && errors.bvn ? (
-                      <small className='text-danger'>{errors.bvn}</small>
-                    ) : null}
-                  </div>
-
-                  <div className='form-group'>
-                    <div className='d-flex justify-content-between pb-1 fillup'>
-                      <label htmlFor='name' className='fila'>
-                        Account number
-                      </label>
-                    </div>
-                    <input
-                      name='accountNumber'
-                      className='form-control bvn_input text-muted border-dark'
-                      style={{ textAlign: "left" }}
-                      type='text'
-                      placeholder='Enter your account number'
-                      {...getFieldProps("accountNumber")}
-                    />
-                    {touched.accountNumber && errors.accountNumber ? (
-                      <small className='text-danger'>
-                        {errors.accountNumber}
-                      </small>
-                    ) : null}
-                  </div>
-
-                  <div className='d-flex justify-content-end mt-4'>
-                    {loading.bvn ? (
-                      <div className='spinner-border text-danger' role='status'>
-                        <span className='sr-only'></span>
-                      </div>
-                    ) : (
-                      <>
-                        <div className='d-flex justify-content-end mt-4'>
-                          {loading.bvn ? (
-                            <div
-                              className='spinner-border text-danger'
-                              role='status'>
-                              <span className='sr-only'></span>
-                            </div>
-                          ) : (
-                            <>
-                              {attempt > 0 ? (
-                                <button
-                                  disabled={!isValid || !dirty}
-                                  className='btn btn-dange float-right btn-filled-red'
-                                  type='submit'>
-                                  Validate
-                                </button>
-                              ) : (
-                                <button className={styles.submit}>
-                                  Submit
-                                </button>
-                              )}
-                            </>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </div>
+      {step === "validated" ? (
+        <>{children}</>
+      ) : (
+        <>
+          {error && (
+            <div className={styles.ErrorBg}>
+              <div className={styles.ErrorContain}>
+                <h1>BVN Validation unsuccessful</h1>
+                <p>
+                  Kindly visit the nearest branch if you are yet to be profiled
+                  on the BVN platform
+                </p>
+                <div className={styles.ErrorButtonFlex}>
+                  <button
+                    className={styles.ErrorCancel}
+                    onClick={closeBvnError}>
+                    Cancel
+                  </button>
+                  <button className={styles.ErrorRetry} onClick={retryError}>
+                    Retry
+                  </button>
                 </div>
+                <p className={styles.ErrorMessage}>
+                  You have <b>{attempt} attempts</b> remaining
+                </p>
               </div>
-            </Form>
+            </div>
           )}
-        </Formik>
-      ) : step === "otp" ? (
-        <div>
-          <div className=' card-form pl-5 pr-5 '>
-            <div className='card-body text-center'>
-              <h4 className='card-title text-center pt-4 mt-5'>Enter OTP</h4>
-              <p className='text-muted'>
-                An OTP has been sent to the mobile number captured in <br />
-                your BVN. Kindly enter the OTP to proceed.
-              </p>
 
-              <div className={styles.otpHolder}>
-                <AuthCode
-                  inputClassName={styles.otp}
-                  placeholder='*'
-                  length={4}
-                  allowedCharacters='numeric'
-                  onChange={(value) => setServerOtp(value)}
-                />
-              </div>
+          {step === "bvn-validation" ? (
+            <Formik
+              initialValues={initialValues}
+              onSubmit={validateBVN}
+              validationSchema={VS}>
+              {({ dirty, getFieldProps, touched, errors, isValid }) => (
+                <Form>
+                  <Toaster position='top-center' reverseOrder={false} />
+                  {/* <div className="card-form px-4"> */}
+                  <div className={`card-form`}>
+                    <div className='card-body'>
+                      <h4 className='card-title text-center pl-5 mt-4'>
+                        {accountType === "minor savings"
+                          ? "Parent/Guardian's BVN"
+                          : ""}{" "}
+                        BVN Validation
+                      </h4>
+                      <div className='bvn_val mb-4'>
+                        <img src={Icon_L} alt='' />
+                        <small className='text-danger ml-4'>
+                          Kindly ensure that your BVN information is up to date
+                        </small>
+                      </div>
+                      <div className='form-group'>
+                        <div className='d-flex justify-content-between pb-1 fillup'>
+                          <label htmlFor='name' className='fila'>
+                            Enter BVN
+                          </label>
+                          <i
+                            className='bx bxs-info-circle'
+                            data-toggle='tooltip'
+                            data-placement='bottom'
+                            title='The Bank Verification Number (BVN) is an 11-digit number.Dial *565*0# to check your BVN'></i>
+                        </div>
+                        <input
+                          name='bvn'
+                          maxLength={11}
+                          className='form-control bvn_input border-dark'
+                          style={{ textAlign: "left" }}
+                          type='text'
+                          {...getFieldProps("bvn")}
+                          placeholder='Enter your BVN'
+                        />
+                        {touched.bvn && errors.bvn ? (
+                          <small className='text-danger'>{errors.bvn}</small>
+                        ) : null}
+                      </div>
 
-              {loading.otp ? (
-                <div className='spinner-border text-danger mb-4' role='status'>
-                  <span className='sr-only'></span>
-                </div>
-              ) : (
-                <button
-                  disabled={serverOtp.length !== 4}
-                  type='submit'
-                  className='btn btn-danger btn-filled-red mb-4 proceed-btn'
-                  onClick={handleVerifyOTP}>
-                  Proceed
-                </button>
+                      <div className='form-group'>
+                        <div className='d-flex justify-content-between pb-1 fillup'>
+                          <label htmlFor='name' className='fila'>
+                            Account number
+                          </label>
+                        </div>
+                        <input
+                          name='accountNumber'
+                          className='form-control bvn_input text-muted border-dark'
+                          style={{ textAlign: "left" }}
+                          type='text'
+                          placeholder='Enter your account number'
+                          {...getFieldProps("accountNumber")}
+                        />
+                        {touched.accountNumber && errors.accountNumber ? (
+                          <small className='text-danger'>
+                            {errors.accountNumber}
+                          </small>
+                        ) : null}
+                      </div>
+
+                      <div className='d-flex justify-content-end mt-4'>
+                        {loading.bvn ? (
+                          <div
+                            className='spinner-border text-danger'
+                            role='status'>
+                            <span className='sr-only'></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className='d-flex justify-content-end mt-4'>
+                              {loading.bvn ? (
+                                <div
+                                  className='spinner-border text-danger'
+                                  role='status'>
+                                  <span className='sr-only'></span>
+                                </div>
+                              ) : (
+                                <>
+                                  {attempt > 0 ? (
+                                    <button
+                                      disabled={!isValid || !dirty}
+                                      className='btn btn-dange float-right btn-filled-red'
+                                      type='submit'>
+                                      Validate
+                                    </button>
+                                  ) : (
+                                    <button className={styles.submit}>
+                                      Submit
+                                    </button>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </Form>
               )}
+            </Formik>
+          ) : step === "otp" ? (
+            <div>
+              <div className=' card-form pl-5 pr-5 '>
+                <div className='card-body text-center'>
+                  <h4 className='card-title text-center pt-4 mt-5'>
+                    Enter OTP
+                  </h4>
+                  <p className='text-muted'>
+                    An OTP has been sent to the mobile number captured in <br />
+                    your BVN. Kindly enter the OTP to proceed.
+                  </p>
 
-              {/* TODO reset otp */}
+                  <div className={styles.otpHolder}>
+                    <AuthCode
+                      inputClassName={styles.otp}
+                      placeholder='*'
+                      length={4}
+                      allowedCharacters='numeric'
+                      onChange={(value) => setServerOtp(value)}
+                    />
+                  </div>
 
-              <p>
-                <small>
-                  Did not get the OTP?{" "}
-                  <span className='font-weight-bold'>
-                    <u style={{ cursor: "pointer" }} onClick={handleResendOTP}>
-                      Resend OTP
-                    </u>
-                  </span>
-                </small>
-              </p>
+                  {loading.otp ? (
+                    <div
+                      className='spinner-border text-danger mb-4'
+                      role='status'>
+                      <span className='sr-only'></span>
+                    </div>
+                  ) : (
+                    <button
+                      disabled={serverOtp.length !== 4}
+                      type='submit'
+                      className='btn btn-danger btn-filled-red mb-4 proceed-btn'
+                      onClick={handleVerifyOTP}>
+                      Proceed
+                    </button>
+                  )}
+
+                  {/* TODO reset otp */}
+
+                  <p>
+                    <small>
+                      Did not get the OTP?{" "}
+                      <span className='font-weight-bold'>
+                        <u
+                          style={{ cursor: "pointer" }}
+                          onClick={handleResendOTP}>
+                          Resend OTP
+                        </u>
+                      </span>
+                    </small>
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ) : null}
+          ) : null}
+        </>
+      )}
     </>
   );
 };

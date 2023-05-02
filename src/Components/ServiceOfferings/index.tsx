@@ -3,70 +3,70 @@ import styles from "./ServiceOffer.module.css";
 import ServiceOfferingsLabels from "./ServiceOfferingsLabels";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../../redux/accountOpening";
-import { setAccountOpeningDetails } from "../../redux/accountOpening";
+import { setStep } from "../../redux/global";
+import { setDetails } from "../../redux/global";
 
 export default function ServiceOfferings() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const navigateToAccountReactivation = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/account-reactivation");
   };
 
   const navigateToUpdateEmail = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/update-email");
   };
 
   const navigateToUpdateAccountName = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/update-account-name");
   };
 
   const navigateToUpdatePhoneNumber = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/update-phone-number");
   };
 
   const navigateToMandateSignature = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/mandate-and-signature");
   };
 
   const navigateToResidentialAddress = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/residential-address");
   };
 
   const navigateToExpiredID = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/update-expired-id");
   };
 
   const navigateToChequeRequest = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/cheque-request");
   };
 
   const navigateToBranchDomiciliation = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/branch-domiciliation");
   };
 
   const navigateToChequeDeposit = () => {
-    dispatch(setAccountOpeningStep("bvn-validation"));
-    dispatch(setAccountOpeningDetails("bvn-validation"));
+    dispatch(setStep("bvn-validation"));
+    dispatch(setDetails("bvn-validation"));
     navigate("/cheque-deposit");
   };
 
@@ -109,8 +109,8 @@ export default function ServiceOfferings() {
           <h1>Our self service offerings</h1>
           <p>Which service you would like to access?</p>
           <ServiceOfferingsLabels
-            headerText="Account Services"
-            icon="/images/svg/accountServices.svg"
+            headerText='Account Services'
+            icon='/images/svg/accountServices.svg'
             dropDown
             onClick={handleAccountServiceSelection}
           />
@@ -120,8 +120,8 @@ export default function ServiceOfferings() {
         <div>
           <div className={styles.HeaderFlex}>
             <img
-              src="images/svg/backIcon.svg"
-              alt=""
+              src='images/svg/backIcon.svg'
+              alt=''
               className={styles.backButton}
               onClick={handleAccountServiceInitial}
             />
@@ -129,27 +129,27 @@ export default function ServiceOfferings() {
           </div>
           <p>Select an account service</p>
           <ServiceOfferingsLabels
-            headerText="Account reactivation"
-            icon="/images/svg/acctActivate.svg"
+            headerText='Account reactivation'
+            icon='/images/svg/acctActivate.svg'
             onClick={navigateToAccountReactivation}
           />
           <ServiceOfferingsLabels
-            headerText="Change of static data"
-            icon="/images/svg/staticData.svg"
-            subText="Phone Number, Email Address, Account Name, Residential Address, Mandate and Signature"
+            headerText='Change of static data'
+            icon='/images/svg/staticData.svg'
+            subText='Phone Number, Email Address, Account Name, Residential Address, Mandate and Signature'
             dropDown
             onClick={handleChangeOfStaticData}
           />
           <ServiceOfferingsLabels
-            headerText="Update expired ID"
-            icon="/images/svg/accountServices.svg"
+            headerText='Update expired ID'
+            icon='/images/svg/accountServices.svg'
             onClick={navigateToExpiredID}
           />
           <ServiceOfferingsLabels
-            headerText="Others"
-            icon="/images/svg/otherSvg.svg"
-            subText="Cheque request, Cheque deposit, Change of branch of domiciliation, Manager’s cheque request,
-Manager’s cheque repurchase, Biometric maintenance service"
+            headerText='Others'
+            icon='/images/svg/otherSvg.svg'
+            subText='Cheque request, Cheque deposit, Change of branch of domiciliation, Manager’s cheque request,
+Manager’s cheque repurchase, Biometric maintenance service'
             dropDown
             onClick={handleChangeOfOthersSelection}
           />
@@ -159,8 +159,8 @@ Manager’s cheque repurchase, Biometric maintenance service"
         <div>
           <div className={styles.HeaderFlex}>
             <img
-              src="images/svg/backIcon.svg"
-              alt=""
+              src='images/svg/backIcon.svg'
+              alt=''
               className={styles.backButton}
               onClick={handleAccountServiceSelection}
             />
@@ -173,28 +173,28 @@ Manager’s cheque repurchase, Biometric maintenance service"
           </div>
           <p>Choose an option to continue</p>
           <ServiceOfferingsLabels
-            headerText="Phone number"
-            icon="/images/svg/phone.svg"
+            headerText='Phone number'
+            icon='/images/svg/phone.svg'
             onClick={navigateToUpdatePhoneNumber}
           />
           <ServiceOfferingsLabels
-            headerText="Email address"
-            icon="/images/svg/email.svg"
+            headerText='Email address'
+            icon='/images/svg/email.svg'
             onClick={navigateToUpdateEmail}
           />
           <ServiceOfferingsLabels
-            headerText="Account name"
-            icon="/images/svg/accountName.svg"
+            headerText='Account name'
+            icon='/images/svg/accountName.svg'
             onClick={navigateToUpdateAccountName}
           />
           <ServiceOfferingsLabels
-            headerText="Residential address"
-            icon="/images/svg/address.svg"
+            headerText='Residential address'
+            icon='/images/svg/address.svg'
             onClick={navigateToResidentialAddress}
           />
           <ServiceOfferingsLabels
-            headerText="Mandate and signature"
-            icon="/images/svg/sign.svg"
+            headerText='Mandate and signature'
+            icon='/images/svg/sign.svg'
             onClick={navigateToMandateSignature}
           />
         </div>
@@ -203,8 +203,8 @@ Manager’s cheque repurchase, Biometric maintenance service"
         <div>
           <div className={styles.HeaderFlex}>
             <img
-              src="images/svg/backIcon.svg"
-              alt=""
+              src='images/svg/backIcon.svg'
+              alt=''
               className={styles.backButton}
               onClick={handleAccountServiceSelection}
             />
@@ -217,18 +217,18 @@ Manager’s cheque repurchase, Biometric maintenance service"
           </div>
           <p>Choose an option to continue</p>
           <ServiceOfferingsLabels
-            headerText="Cheque request"
-            icon="/images/svg/ches.svg"
+            headerText='Cheque request'
+            icon='/images/svg/ches.svg'
             onClick={navigateToChequeRequest}
           />
           <ServiceOfferingsLabels
-            headerText="Cheque deposit"
-            icon="/images/svg/che.svg"
+            headerText='Cheque deposit'
+            icon='/images/svg/che.svg'
             onClick={navigateToChequeDeposit}
           />
           <ServiceOfferingsLabels
-            headerText="Change of branch domiciliation"
-            icon="/images/svg/cheDom.svg"
+            headerText='Change of branch domiciliation'
+            icon='/images/svg/cheDom.svg'
             onClick={navigateToBranchDomiciliation}
           />
         </div>

@@ -38,7 +38,6 @@ export default function BranchDomiciliation() {
   const [result, setResult] = useState(false);
   const [validated, setValidated] = useState(false);
   const webcamRef = React.useRef(null);
-  const [bvnCompleted, setBvnCompleted] = useState(false);
 
   const validateImage = () => {
     setGeneratedNumber(0);
@@ -76,9 +75,7 @@ export default function BranchDomiciliation() {
     navigate("/");
   };
 
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const webClick = () => {
     setWebCam(true);
@@ -160,7 +157,7 @@ export default function BranchDomiciliation() {
                   setIsLoading={setIsLoading}
                   setComplete={setBvnCompleted}
                 />
-                {accountOpeningStep === "account-reactivation" ? (
+                {globalState === "account-reactivation" ? (
                   <BranchDomiciliationForm
                     webClick={webClick}
                     image={image}

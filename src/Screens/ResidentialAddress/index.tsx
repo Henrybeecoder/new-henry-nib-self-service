@@ -70,9 +70,7 @@ export default function ResidentialAdress() {
   const [webcam, setWebCam] = useState(false);
 
   const navigate = useNavigate();
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const nagivateHome = () => {
     navigate("/");
@@ -158,7 +156,7 @@ export default function ResidentialAdress() {
                   setComplete={setBvnCompleted}
                   setIsLoading={setIsLoading}
                 />
-                {accountOpeningStep === "account-reactivation" ? (
+                {globalState === "account-reactivation" ? (
                   <UpdateResidentialAddress
                     webClick={webClick}
                     image={image}

@@ -17,7 +17,7 @@ import { Toaster } from "react-hot-toast";
 import { getLocalStorageItem } from "../../../utils/localStorage";
 import SignaturePad from "react-signature-canvas";
 import { getMonth, getYear } from "date-fns";
-import { setAccountOpeningStep } from "../../../redux/accountOpening";
+import { setStep } from "../../../redux/global";
 import { BL, states } from "./BranchSuccess/utils";
 import { useDispatch } from "react-redux";
 import { PrevButton } from "../../Buttons";

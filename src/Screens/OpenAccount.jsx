@@ -19,13 +19,11 @@ import UpdateDetailDomiciliaryCurrentDialog from "../Components/updateDetailsDia
 import UpdateDetailDomiciliarySavingsDialog from "../Components/updateDetailsDialog/UpdateDetailDomiciliarySavingsDialog";
 // import Icon_L from '../assets/images/Icon_L.svg'
 import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../redux/accountOpening";
+import { setStep } from "../redux/global";
 
 function OpenAccount(props) {
   // const { accountType } = useSelector((state) => state.accountOpeningData)
-  const { accountOpeningStep } = useSelector(
-    (state) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state) => state.accountOpeningData);
 
   // const [selectedAccountType, setSelectedAccountType] = useState('')
   const [accountType, setAccountType] = useState(
@@ -36,7 +34,7 @@ function OpenAccount(props) {
   const dispatch = useDispatch();
 
   const next = () => {
-    dispatch(setAccountOpeningStep("swift-savings"));
+    dispatch(setStep("swift-savings"));
     setAccountType("swift savings");
   };
   return (
@@ -97,66 +95,60 @@ function OpenAccount(props) {
           </div>
           <div className='row'>
             <div className='col-md-11 card validation-card pb-4'>
-              {accountOpeningStep === "bvn-validation" ? (
-                <BvnValidationDialog />
-              ) : (
-                ""
-              )}
+              {globalState === "bvn-validation" ? <BvnValidationDialog /> : ""}
 
-              {accountOpeningStep === "otp" ? <Otp /> : ""}
+              {globalState === "otp" ? <Otp /> : ""}
 
-              {accountOpeningStep === "swift-savings" ? (
+              {globalState === "swift-savings" ? (
                 <UpdateDetailSwiftSavingsDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "update-detail" &&
-              accountType === "savings" ? (
+              {globalState === "update-detail" && accountType === "savings" ? (
                 <UpdateDetailSavingsDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "update-detail" &&
+              {globalState === "update-detail" &&
               accountType === "minor savings" ? (
                 <UpdateDetailMinorSavingsDialog />
               ) : null}
-              {accountOpeningStep === "update-detail" &&
+              {globalState === "update-detail" &&
               accountType === "joint savings" ? (
                 <UpdateDetailJointSavingsDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "update-detail" &&
+              {globalState === "update-detail" &&
               accountType === "domiciliary savings" ? (
                 <UpdateDetailDomiciliarySavingsDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "update-detail" &&
-              accountType === "current" ? (
+              {globalState === "update-detail" && accountType === "current" ? (
                 <UpdateDetailCurrentDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "update-detail" &&
+              {globalState === "update-detail" &&
               accountType === "joint current" ? (
                 <UpdateDetailJointCurrentDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "update-detail" &&
+              {globalState === "update-detail" &&
               accountType === "domiciliary current" ? (
                 <UpdateDetailDomiciliaryCurrentDialog />
               ) : (
                 ""
               )}
 
-              {accountOpeningStep === "document-upload" ? (
+              {globalState === "document-upload" ? (
                 <DocumentUploadDialog />
               ) : (
                 ""
               )}
-              {accountOpeningStep === "account-opening-success" ? (
+              {globalState === "account-opening-success" ? (
                 <AccountOpeningSuccessDialog />
               ) : (
                 ""

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setAccountOpeningStep } from "../../redux/accountOpening";
+import { setStep } from "../../redux/global";
 import { type MouseEventHandler } from "react";
 import styles from "./style.module.css";
 
@@ -13,11 +13,7 @@ export const PrevButton = ({ onClick }: PrevButtonProps) => {
     <button
       className={styles.previous}
       type='button'
-      onClick={
-        onClick
-          ? onClick
-          : () => dispatch(setAccountOpeningStep("bvn-validation"))
-      }>
+      onClick={onClick ? onClick : () => dispatch(setStep("bvn-validation"))}>
       Previous
     </button>
   );

@@ -66,9 +66,7 @@ export default function UpdateExpiredId() {
   const [webcam, setWebCam] = useState(false);
 
   const navigate = useNavigate();
-  const { accountOpeningStep } = useSelector(
-    (state: any) => state.accountOpeningData
-  );
+  const { globalState } = useSelector((state: any) => state.accountOpeningData);
 
   const nagivateHome = () => {
     navigate("/");
@@ -169,7 +167,7 @@ export default function UpdateExpiredId() {
                 setComplete={setBvnCompleted}
                 setIsLoading={setIsLoading}
               />
-              {accountOpeningStep === "account-reactivation" ? (
+              {globalState === "account-reactivation" ? (
                 <UpdateExpiredForm />
               ) : (
                 ""
