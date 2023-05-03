@@ -8,14 +8,16 @@ import { ReactNode, useState } from "react";
 import BvnValidation from "../Components/BvnValidation";
 import Loader from "../Screens/Loader";
 import { useSelector } from "react-redux";
+import WebcamComp, { WCProps } from "./Webcam";
 
 interface Props {
   name: string;
   breadcrumb: string;
   children: ReactNode;
+  webcam?: WCProps;
 }
 
-const Layout = ({ children, name, breadcrumb }: Props) => {
+const Layout = ({ children, name, breadcrumb, webcam }: Props) => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -90,6 +92,8 @@ const Layout = ({ children, name, breadcrumb }: Props) => {
           </div>
         </div>
       </div>
+
+      <WebcamComp {...webcam} />
     </>
   );
 };
