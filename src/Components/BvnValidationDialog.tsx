@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Icon_L from "../assets/images/Icon_L.svg";
 import { setStep } from "../redux/global";
-import { AiFillInfoCircle } from "react-icons/ai";
-import ModalBranch from "./Modalbranch";
 import axios from "axios";
 import { baseUrl } from "../utils/baseUrl";
 import {
@@ -28,9 +26,7 @@ function BvnValidationDialog(props: any) {
     setInputs((values: any) => ({ ...values, [name]: value }));
   };
 
-  const [accountType, setAccountType] = useState(
-    localStorage.getItem("altFinanceAccountType")
-  );
+  const [accountType] = useState(localStorage.getItem("altFinanceAccountType"));
 
   console.log(inputs.bvn);
   console.log(typeof inputs.bvn);

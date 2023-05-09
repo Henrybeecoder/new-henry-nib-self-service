@@ -27,8 +27,6 @@ function OtpDialog(props: any) {
     getLocalStorageItem("userDetails")
   );
 
-  console.log(userDetails.otp);
-
   useEffect(() => {
     toast.successToast(userDetails.otp);
   }, [userDetails]);

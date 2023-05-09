@@ -46,6 +46,10 @@ const BvnValidation = ({ setIsLoading, children }: Props) => {
   const [error, setError] = useState(false);
   const [referenceId, setreferenceId] = useState("");
 
+  const userDetails = getLocalStorageItem("userDetails");
+
+  console.log(userDetails);
+
   const [attempt, setAttempt] = useState(3);
   const [serverOtp, setServerOtp] = useState("");
 
@@ -201,8 +205,6 @@ const BvnValidation = ({ setIsLoading, children }: Props) => {
     setError(false);
     setAttempt(attempt - 1);
   };
-
-  console.log(step);
 
   return (
     <>
